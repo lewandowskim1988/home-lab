@@ -1,0 +1,34 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: apps
+  namespace: argocd
+spec:
+  description: Project app-of-apps
+  sourceRepos:
+  - '*'
+  destinations:
+  - namespace: external-secrets
+    server: https://kubernetes.default.svc
+  - namespace: external-dns
+    server: https://kubernetes.default.svc
+  - namespace: cert-manager
+    server: https://kubernetes.default.svc
+  - namespace: common
+    server: https://kubernetes.default.svc
+  - namespace: reflector
+    server: https://kubernetes.default.svc
+  - namespace: argocd
+    server: https://kubernetes.default.svc
+  # Deny all cluster-scoped resources from being created, except for Namespace
+  clusterResourceWhitelist:
+  - group: '*'
+    kind: '*'
+  # Allow all namespaced-scoped resources to be created, except for ResourceQuota, LimitRange, NetworkPolicy
+  namespaceResourceBlacklist:
+  - group: ''
+    kind: ResourceQuota
+  - group: ''
+    kind: LimitRange
+  - group: ''
+    kind: NetworkPolicy

@@ -1,0 +1,161 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argocd
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: 'argocd'
+    server: 'https://kubernetes.default.svc'
+  project: argocd
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
+    - ApplyOutOfSyncOnly=true
+    - PruneLast=true
+  source:
+    repoURL: https://argoproj.github.io/argo-helm
+    chart: argo-cd
+    targetRevision: 7.7.22
+    helm:
+      values: |-
+        nameOverride: argocd
+        fullnameOverride: argocd
+        global:
+          domain: argocd.lewandowskim.com
+        extraObjects:
+          - apiVersion: argoproj.io/v1alpha1
+            kind: Application
+            metadata:
+              name: app-of-apps
+              namespace: argocd
+              finalizers:
+              - resources-finalizer.argocd.argoproj.io
+            spec:
+              destination:
+                namespace: 'argocd'
+                server: 'https://kubernetes.default.svc'
+              project: app-of-apps
+              syncPolicy:
+                automated:
+                  prune: true
+                  selfHeal: true
+                syncOptions:
+                - CreateNamespace=true
+              source:
+                path: argocd/skynet
+                repoURL: https://github.com/lewandowskim1988/home-lab.git
+                targetRevision: HEAD
+                directory:
+                  recurse: true
+          - apiVersion: argoproj.io/v1alpha1
+            kind: AppProject
+            metadata:
+              name: app-of-apps
+              namespace: argocd
+            spec:
+              description: Project for app-of-apps
+              sourceRepos:
+              - '*'
+              destinations:
+              - namespace: argocd
+                server: https://kubernetes.default.svc
+              # Deny all cluster-scoped resources from being created, except for Namespace
+              clusterResourceWhitelist:
+              - group: '*'
+                kind: '*'
+              # Allow all namespaced-scoped resources to be created, except for ResourceQuota, LimitRange, NetworkPolicy
+              namespaceResourceBlacklist:
+              - group: ''
+                kind: ResourceQuota
+              - group: ''
+                kind: LimitRange
+              - group: ''
+                kind: NetworkPolicy
+        controller:
+          resources:
+            limits:
+              cpu: 800m
+              memory: 1Gi
+            requests:
+              cpu: 700m
+              memory: 700Mi
+        dex:
+          resources:
+            limits:
+              cpu: 50m
+              memory: 64Mi
+            requests:
+              cpu: 10m
+              memory: 32Mi
+        redis:
+          resources:
+            limits:
+              cpu: 50m
+              memory: 100Mi
+            requests:
+              cpu: 10m
+              memory: 80Mi
+        server:
+          autoscaling:
+            enabled: true
+            minReplicas: 1
+            maxReplicas: 5
+            targetCPUUtilizationPercentage: 70
+            targetMemoryUtilizationPercentage: 70
+          resources:
+            limits:
+              cpu: 200m
+              memory: 200Mi
+            requests:
+              cpu: 150m
+              memory: 150Mi
+          ingress:
+            enabled: true
+            annotations:
+              kubernetes.io/ingress.class: nginx
+              nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+              nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+              nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+            ingressClassName: "nginx"
+            hostname: argocd.lewandowskim.com
+            extraTls:
+              - hosts:
+                - argocd.lewandowskim.com
+                secretName: tls-wildcard-lewandowskim-com
+        repoServer:
+          autoscaling:
+            enabled: true
+            minReplicas: 1
+            maxReplicas: 5
+            targetCPUUtilizationPercentage: 70
+            targetMemoryUtilizationPercentage: 70
+          resources:
+            limits:
+              cpu: 200m
+              memory: 200Mi
+            requests:
+              cpu: 150m
+              memory: 150Mi
+        applicationSet:
+          resources:
+            limits:
+              cpu: 50m
+              memory: 64Mi
+            requests:
+              cpu: 20m
+              memory: 32Mi
+        notifications:
+          enabled: false
+        configs:
+          repositories:
+            bitnami-helm-repo:
+              url: registry-1.docker.io/bitnamicharts
+              name: bitnamicharts
+              type: helm
+              enableOCI: "true"

@@ -1,0 +1,19 @@
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: lewandowskim-com
+  namespace: cert-manager
+  labels:
+    {{- include "common.labels" . | nindent 4 }}
+spec:
+  acme:
+    email: michal.lewandowski1988@gmail.com
+    server: https://acme-v02.api.letsencrypt.org/directory
+    privateKeySecretRef:
+      name: lewandowskim-com-issuer-account-key
+    solvers:
+    - dns01:
+        cloudflare:
+          apiTokenSecretRef:
+            name: cloudflare-api-token-secret
+            key: api-token
