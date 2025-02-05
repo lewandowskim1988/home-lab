@@ -1,0 +1,53 @@
+nameOverride: argocd
+fullnameOverride: argocd
+
+extraObjects:
+  - apiVersion: argoproj.io/v1alpha1
+    kind: Application
+    metadata:
+      name: app-of-apps
+      namespace: argocd
+      finalizers:
+      - resources-finalizer.argocd.argoproj.io
+    spec:
+      destination:
+        namespace: 'argocd'
+        server: 'https://kubernetes.default.svc'
+      project: app-of-apps
+      syncPolicy:
+        automated: {}
+        syncOptions:
+        - CreateNamespace=true
+      source:
+        path: argocd/skynet
+        repoURL: https://github.com/lewandowskim1988/home-lab.git
+        targetRevision: HEAD
+        directory:
+          recurse: true
+  - apiVersion: argoproj.io/v1alpha1
+    kind: AppProject
+    metadata:
+      name: app-of-apps
+      namespace: argocd
+    spec:
+      description: Project for app-of-apps
+      sourceRepos:
+      - '*'
+      destinations:
+      - namespace: argocd
+        server: https://kubernetes.default.svc
+      # Deny all cluster-scoped resources from being created, except for Namespace
+      clusterResourceWhitelist:
+      - group: '*'
+        kind: '*'
+      # Allow all namespaced-scoped resources to be created, except for ResourceQuota, LimitRange, NetworkPolicy
+      namespaceResourceBlacklist:
+      - group: ''
+        kind: ResourceQuota
+      - group: ''
+        kind: LimitRange
+      - group: ''
+        kind: NetworkPolicy
+
+notifications:
+  enabled: false
