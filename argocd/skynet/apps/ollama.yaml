@@ -37,4 +37,4 @@ spec:
             run: []
         persistentVolume:
           enabled: true
-          size: 10Gi
+          size: 50Gi
