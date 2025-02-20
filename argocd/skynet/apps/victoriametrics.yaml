@@ -52,13 +52,13 @@ spec:
           enabled: false
         vmagent:
           spec:
-            resources:
-              limits:
-                cpu: 50m
-                memory: 100Mi
-              requests:
-                cpu: 40m
-                memory: 80Mi
+            # resources:
+            #   limits:
+            #     cpu: 50m
+            #     memory: 100Mi
+            #   requests:
+            #     cpu: 40m
+            #     memory: 80Mi
             scrapeInterval: 10s
             externalLabels:
               cluster: skynet
