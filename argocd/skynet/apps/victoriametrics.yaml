@@ -1,0 +1,102 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: victoriametrics
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: 'monitoring'
+    server: 'https://kubernetes.default.svc'
+  project: apps
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
+    - ApplyOutOfSyncOnly=true
+    - PruneLast=true
+  source:
+    repoURL: https://victoriametrics.github.io/helm-charts/
+    chart: victoria-metrics-k8s-stack
+    targetRevision: 0.37.0
+    helm:
+      values: |-
+        nameOverride: "vm"
+        fullnameOverride: "vm"
+        argocdReleaseOverride: "victoria-metrics"
+        defaultRules:
+          rules:
+            kubeScheduler: false
+        vmsingle:
+          enabled: true
+        alertmanager:
+          enabled: false
+        vmagent:
+          spec:
+            resources:
+              limits:
+                cpu: 50m
+                memory: 100Mi
+              requests:
+                cpu: 40m
+                memory: 80Mi
+            scrapeInterval: 10s
+            externalLabels:
+              cluster: skynet
+            inlineScrapeConfig: |
+              - job_name: 'gpu'
+                metrics_path: '/metrics'
+                scheme: http
+                static_configs:
+                  - targets: ['gpu-operator-metrics-exporter.gpu-operator.svc.cluster.local:5000']
+        grafana:
+          enabled: true
+          # resources:
+          #   requests:
+          #     cpu: 1
+          #     memory: 1Gi
+          #   limits:
+          #     cpu: 2
+          #     memory: 2Gi
+          sidecar:
+            dashboards:
+              multicluster: true
+          ingress:
+            enabled: true
+            annotations:
+              kubernetes.io/ingress.class: nginx
+            pathType: Prefix
+            hosts:
+              - monitoring.lewandowskim.com
+            tls:
+            - hosts:
+              - monitoring.lewandowskim.com
+              secretName: tls-wildcard-lewandowskim-com
+          defaultDashboardsTimezone: cet
+          dashboards:
+            custom:
+              gpu:
+                url: https://raw.githubusercontent.com/ROCm/gpu-operator/refs/heads/main/grafana/dashboard_overview.json
+          dashboardProviders:
+            dashboardproviders.yaml:
+              apiVersion: 1
+              providers:
+              - name: 'custom'
+                orgId: 1
+                folder: ''
+                type: file
+                disableDeletion: false
+                editable: true
+                options:
+                  path: /var/lib/grafana/dashboards/custom
+        kubeControllerManager:
+          enabled: true
+        kubeDns:
+          enabled: true
+        coreDns:
+          enabled: true
+
+
