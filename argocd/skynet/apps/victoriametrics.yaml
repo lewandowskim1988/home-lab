@@ -77,9 +77,6 @@ spec:
           #   limits:
           #     cpu: 2
           #     memory: 2Gi
-          sidecar:
-            dashboards:
-              enabled: false
           ingress:
             enabled: true
             annotations:
@@ -92,22 +89,22 @@ spec:
               - monitoring.lewandowskim.com
               secretName: tls-wildcard-lewandowskim-com
           defaultDashboardsTimezone: cet
-          dashboards:
-            custom:
-              gpu:
-                url: https://raw.githubusercontent.com/ROCm/gpu-operator/refs/heads/main/grafana/dashboard_overview.json
-          dashboardProviders:
-            dashboardproviders.yaml:
-              apiVersion: 1
-              providers:
-              - name: 'custom'
-                orgId: 1
-                folder: ''
-                type: file
-                disableDeletion: false
-                editable: true
-                options:
-                  path: /var/lib/grafana/dashboards/custom
+          # dashboards:
+          #   custom:
+          #     gpu:
+          #       url: https://raw.githubusercontent.com/ROCm/gpu-operator/refs/heads/main/grafana/dashboard_overview.json
+          # dashboardProviders:
+          #   dashboardproviders.yaml:
+          #     apiVersion: 1
+          #     providers:
+          #     - name: 'custom'
+          #       orgId: 1
+          #       folder: ''
+          #       type: file
+          #       disableDeletion: false
+          #       editable: true
+          #       options:
+          #         path: /var/lib/grafana/dashboards/custom
         kubeControllerManager:
           enabled: true
         kubeDns:
