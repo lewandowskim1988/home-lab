@@ -65,7 +65,7 @@ spec:
           #     memory: 2Gi
           sidecar:
             dashboards:
-              multicluster: true
+              enabled: false
           ingress:
             enabled: true
             annotations:
