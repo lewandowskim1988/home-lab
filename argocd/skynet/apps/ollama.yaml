@@ -38,3 +38,6 @@ spec:
         persistentVolume:
           enabled: true
           size: 50Gi
+        extraEnv:
+          - name: OLLAMA_FLASH_ATTENTION
+            value: "1"
