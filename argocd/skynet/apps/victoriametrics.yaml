@@ -40,7 +40,7 @@ spec:
       values: |-
         nameOverride: "vm"
         fullnameOverride: "vm"
-        argocdReleaseOverride: "victoria-metrics"
+        argocdReleaseOverride: "victoriametrics"
         vmsingle:
           enabled: true
           spec:
@@ -61,10 +61,7 @@ spec:
         alertmanager:
           enabled: false
         vmalert:
-          enabled: true
-          spec:
-            extraArgs:
-              notifier.blackhole: "true"
+          enabled: false
         vmagent:
           spec:
             resources:
