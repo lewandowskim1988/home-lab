@@ -61,7 +61,7 @@ spec:
         alertmanager:
           enabled: false
         vmalert:
-          enabled: false
+          enabled: true
         vmagent:
           spec:
             resources:
