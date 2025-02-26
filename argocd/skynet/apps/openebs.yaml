@@ -26,4 +26,3 @@ spec:
       values: |-
         nameOverride: "openebs"
         fullnameOverride: "openebs"
-        
