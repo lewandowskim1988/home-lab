@@ -44,7 +44,7 @@ spec:
             value: "1"
         ingress:
           enabled: true
-          class: "nginx"
+          className: "nginx"
           annotations:
             nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
             nginx.ingress.kubernetes.io/ssl-redirect: "true"
