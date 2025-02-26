@@ -44,4 +44,3 @@ spec:
         persistence:
           enabled: true
           size: 5Gi
-          storageClass: "openebs-hostpath"
