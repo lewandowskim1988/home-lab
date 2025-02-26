@@ -26,3 +26,12 @@ spec:
       values: |-
         nameOverride: "openebs"
         fullnameOverride: "openebs"
+        engines:
+          local:
+            lvm:
+              enabled: false
+            zfs:
+              enabled: false
+          replicated:
+            mayastor:
+              enabled: false
