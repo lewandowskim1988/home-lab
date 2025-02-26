@@ -21,7 +21,7 @@ spec:
   source:
     repoURL: https://helm.openwebui.com/
     chart: open-webui
-    targetRevision: 5.10.1
+    targetRevision: 5.20.0
     helm:
       values: |-
         nameOverride: open-webui
@@ -31,7 +31,7 @@ spec:
         pipelines:
           enabled: false
         ollamaUrls:
-          - ollama.ollama.svc.cluster.local:11434
+          - http://ollama.ollama.svc.cluster.local:11434
         ingress:
           enabled: true
           class: "nginx"
@@ -44,3 +44,4 @@ spec:
         persistence:
           enabled: true
           size: 5Gi
+          storageClass: "openebs-hostpath"
