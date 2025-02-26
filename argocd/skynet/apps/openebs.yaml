@@ -19,7 +19,7 @@ spec:
     - ApplyOutOfSyncOnly=true
     - PruneLast=true
   source:
-    repoURL: https://kubernetes-sigs.github.io/openebs/
+    repoURL: https://openebs.github.io/openebs
     chart: openebs
     targetRevision: 4.2.0
     helm:
