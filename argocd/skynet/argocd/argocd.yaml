@@ -159,3 +159,8 @@ spec:
               name: bitnamicharts
               type: helm
               enableOCI: "true"
+            8gears:
+              url: 8gears.container-registry.com/library
+              name: 8gearscharts
+              type: helm
+              enableOCI: "true"
