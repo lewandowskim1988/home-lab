@@ -1,43 +1,43 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: n8n
-  namespace: argocd
-  finalizers:
-  - resources-finalizer.argocd.argoproj.io
-spec:
-  destination:
-    namespace: 'n8n'
-    server: 'https://kubernetes.default.svc'
-  project: apps
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-    - CreateNamespace=true
-    - ApplyOutOfSyncOnly=true
-    - PruneLast=true
-  source:
-    repoURL: '8gears.container-registry.com/library'
-    chart: n8n
-    path: n8n
-    targetRevision: 1.0.0
-    helm:
-      values: |-
-        nameOverride: n8n
-        fullnameOverride: n8n
-        ingress:
-          enabled: true
-          annotations:
-            nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-            nginx.ingress.kubernetes.io/ssl-redirect: "true"
-          className: "nginx"
-          hosts:
-            - host: n8n.lewandowskim.com
-              paths:
-                - "/"
-          tls:
-            - hosts:
-                - n8n.lewandowskim.com
-              secretName: tls-wildcard-lewandowskim-com
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: n8n
+#   namespace: argocd
+#   finalizers:
+#   - resources-finalizer.argocd.argoproj.io
+# spec:
+#   destination:
+#     namespace: 'n8n'
+#     server: 'https://kubernetes.default.svc'
+#   project: apps
+#   syncPolicy:
+#     automated:
+#       prune: true
+#       selfHeal: true
+#     syncOptions:
+#     - CreateNamespace=true
+#     - ApplyOutOfSyncOnly=true
+#     - PruneLast=true
+#   source:
+#     repoURL: '8gears.container-registry.com/library'
+#     chart: n8n
+#     path: n8n
+#     targetRevision: 1.0.0
+#     helm:
+#       values: |-
+#         nameOverride: n8n
+#         fullnameOverride: n8n
+#         ingress:
+#           enabled: true
+#           annotations:
+#             nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+#             nginx.ingress.kubernetes.io/ssl-redirect: "true"
+#           className: "nginx"
+#           hosts:
+#             - host: n8n.lewandowskim.com
+#               paths:
+#                 - "/"
+#           tls:
+#             - hosts:
+#                 - n8n.lewandowskim.com
+#               secretName: tls-wildcard-lewandowskim-com
