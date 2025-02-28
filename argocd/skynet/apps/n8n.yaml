@@ -35,7 +35,8 @@ spec:
           className: "nginx"
           hosts:
             - host: n8n.lewandowskim.com
-              paths: "/"
+              paths:
+                - "/"
           tls:
             - hosts:
                 - n8n.lewandowskim.com
