@@ -1,46 +1,45 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: open-webui
-  namespace: argocd
-  finalizers:
-  - resources-finalizer.argocd.argoproj.io
-spec:
-  destination:
-    namespace: 'open-webui'
-    server: 'https://kubernetes.default.svc'
-  project: apps
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-    - CreateNamespace=true
-    - ApplyOutOfSyncOnly=true
-    - PruneLast=true
-  source:
-    repoURL: https://helm.openwebui.com/
-    chart: open-webui
-    targetRevision: 5.20.0
-    helm:
-      values: |-
-        nameOverride: open-webui
-        fullnameOverride: open-webui
-        ollama:
-          enabled: false
-        pipelines:
-          enabled: false
-        ollamaUrls:
-          - http://ollama.ollama.svc.cluster.local:11434
-        ingress:
-          enabled: true
-          class: "nginx"
-          annotations:
-            nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-            nginx.ingress.kubernetes.io/ssl-redirect: "true"
-          host: "chat.lewandowskim.com"
-          tls: true
-          existingSecret: "tls-wildcard-lewandowskim-com"
-        persistence:
-          enabled: true
-          size: 5Gi
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: open-webui
+#   namespace: argocd
+#   finalizers:
+#   - resources-finalizer.argocd.argoproj.io
+# spec:
+#   destination:
+#     namespace: 'open-webui'
+#     server: 'https://kubernetes.default.svc'
+#   project: apps
+#   syncPolicy:
+#     automated:
+#       prune: true
+#       selfHeal: true
+#     syncOptions:o
+#     - CreateNamespace=true
+#     - ApplyOutOfSyncOnly=true
+#     - PruneLast=true
+#   source:
+#     repoURL: https://helm.openwebui.com/
+#     chart: open-webui
+#     targetRevision: 5.20.0
+#     helm:
+#       values: |-
+#         nameOverride: open-webui
+#         fullnameOverride: open-webui
+#         ollama:
+#         pipelines:
+#           enabled: false
+#         ollamaUrls:
+#           - http://ollama.ollama.svc.cluster.local:11434
+#         ingress:
+#           enabled: true
+#           class: "nginx"
+#           annotations:
+#             nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+#             nginx.ingress.kubernetes.io/ssl-redirect: "true"
+#           host: "chat.lewandowskim.com"
+#           tls: true
+#           existingSecret: "tls-wildcard-lewandowskim-com"
+#         persistence:
+#           enabled: true
+#           size: 5Gi
