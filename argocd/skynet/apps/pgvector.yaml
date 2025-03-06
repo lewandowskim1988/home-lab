@@ -29,6 +29,8 @@ spec:
         fullnameOverride: postgresql
         global:
           defaultStorageClass: "openebs-lvmpv"
+          security:
+            allowInsecureImages: "true"
         postgresqlSharedPreloadLibraries: "pgaudit,pgvector"
         image:
           registry: docker.io
