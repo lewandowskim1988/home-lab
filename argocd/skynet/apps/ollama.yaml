@@ -1,59 +1,60 @@
-# apiVersion: argoproj.io/v1alpha1
-# kind: Application
-# metadata:
-#   name: ollama
-#   namespace: argocd
-#   finalizers:
-#   - resources-finalizer.argocd.argoproj.io
-# spec:
-#   destination:
-#     namespace: 'ollama'
-#     server: 'https://kubernetes.default.svc'
-#   project: apps
-#   syncPolicy:
-#     automated:
-#       prune: true
-#       selfHeal: true
-#     syncOptions:
-#     - CreateNamespace=true
-#     - ApplyOutOfSyncOnly=true
-#     - PruneLast=true
-#   source:
-#     repoURL: https://otwld.github.io/ollama-helm/
-#     chart: ollama
-#     targetRevision: 1.4.1
-#     helm:
-#       values: |-
-#         nameOverride: ollama
-#         fullnameOverride: ollama
-#         ollama:
-#           gpu:
-#             enabled: true
-#             type: "amd"
-#           models:
-#             pull:
-#               - deepseek-r1:8b
-#               - deepseek-r1:14b
-#               - qwen2.5-coder:14b
-#             run: []
-#         persistentVolume:
-#           enabled: true
-#           size: 50Gi
-#         extraEnv:
-#           - name: OLLAMA_FLASH_ATTENTION
-#             value: "1"
-#         ingress:
-#           enabled: true
-#           className: "nginx"
-#           annotations:
-#             nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-#             nginx.ingress.kubernetes.io/ssl-redirect: "true"
-#           hosts:
-#             - host: ollama.lewandowskim.com
-#               paths:
-#                 - path: /
-#                   pathType: Prefix
-#           tls:
-#             - secretName: tls-wildcard-lewandowskim-com
-#               hosts:
-#                 - ollama.lewandowskim.com
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ollama
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: 'ollama'
+    server: 'https://kubernetes.default.svc'
+  project: apps
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
+    - ApplyOutOfSyncOnly=true
+    - PruneLast=true
+  source:
+    repoURL: https://otwld.github.io/ollama-helm/
+    chart: ollama
+    targetRevision: 1.8.0
+    helm:
+      values: |-
+        nameOverride: ollama
+        fullnameOverride: ollama
+        ollama:
+          gpu:
+            enabled: true
+            type: "amd"
+          models:
+            pull:
+              - deepseek-r1:8b
+              - deepseek-r1:14b
+              - qwen2.5-coder:14b
+            run: []
+        persistentVolume:
+          enabled: true
+          size: 50Gi
+          storageClass: "openebs-lvmpv"
+        extraEnv:
+          - name: OLLAMA_FLASH_ATTENTION
+            value: "1"
+        ingress:
+          enabled: true
+          className: "nginx"
+          annotations:
+            nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+            nginx.ingress.kubernetes.io/ssl-redirect: "true"
+          hosts:
+            - host: ollama.lewandowskim.com
+              paths:
+                - path: /
+                  pathType: Prefix
+          tls:
+            - secretName: tls-wildcard-lewandowskim-com
+              hosts:
+                - ollama.lewandowskim.com
