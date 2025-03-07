@@ -31,11 +31,11 @@ spec:
           defaultStorageClass: "openebs-lvmpv"
           security:
             allowInsecureImages: "true"
-        postgresqlSharedPreloadLibraries: "pgaudit,pgvector"
+        postgresqlSharedPreloadLibraries: "pgaudit"
         image:
           registry: docker.io
           repository: lewandowskim/postgres-vector
-          tag: 17.4.0-debug
+          tag: 17.4.0
         primary:
           resources:
             limits:
