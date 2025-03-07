@@ -35,7 +35,7 @@ spec:
         image:
           registry: docker.io
           repository: lewandowskim/postgres-vector
-          tag: 17.4.0
+          tag: 17.4.0-debug
         primary:
           resources:
             limits:
