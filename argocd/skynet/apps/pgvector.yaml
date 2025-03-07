@@ -1,48 +1,48 @@
-# apiVersion: argoproj.io/v1alpha1
-# kind: Application
-# metadata:
-#   name: postgresql-vector
-#   namespace: argocd
-#   finalizers:
-#   - resources-finalizer.argocd.argoproj.io
-# spec:
-#   destination:
-#     namespace: 'pgvector'
-#     server: 'https://kubernetes.default.svc'
-#   project: apps
-#   syncPolicy:
-#     automated:
-#       prune: true
-#       selfHeal: true
-#     syncOptions:
-#     - CreateNamespace=true
-#     - ApplyOutOfSyncOnly=true
-#     - PruneLast=true
-#   source:
-#     repoURL: 'registry-1.docker.io/bitnamicharts'
-#     chart: postgresql
-#     path: postgresql
-#     targetRevision: 16.4.16
-#     helm:
-#       values: |-
-#         nameOverride: postgresql
-#         fullnameOverride: postgresql
-#         global:
-#           defaultStorageClass: "openebs-lvmpv"
-#           security:
-#             allowInsecureImages: "true"
-#         postgresqlSharedPreloadLibraries: "pgaudit,vector"
-#         image:
-#           registry: docker.io
-#           repository: lewandowskim/postgres-vector
-#           tag: 17.4.0
-#         primary:
-#           resources:
-#             limits:
-#               memory: 850Mi
-#               cpu: 850m
-#             requests:
-#               memory: 700Mi
-#               cpu: 700m
-#           persistence:
-#             size: 10Gi
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: postgresql-vector
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: 'pgvector'
+    server: 'https://kubernetes.default.svc'
+  project: apps
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
+    - ApplyOutOfSyncOnly=true
+    - PruneLast=true
+  source:
+    repoURL: 'registry-1.docker.io/bitnamicharts'
+    chart: postgresql
+    path: postgresql
+    targetRevision: 16.4.16
+    helm:
+      values: |-
+        nameOverride: postgresql
+        fullnameOverride: postgresql
+        global:
+          defaultStorageClass: "openebs-lvmpv"
+          security:
+            allowInsecureImages: "true"
+        postgresqlSharedPreloadLibraries: "pgaudit,vector"
+        image:
+          registry: docker.io
+          repository: lewandowskim/postgres-vector
+          tag: 17.4.0
+        primary:
+          resources:
+            limits:
+              memory: 850Mi
+              cpu: 850m
+            requests:
+              memory: 700Mi
+              cpu: 700m
+          persistence:
+            size: 10Gi
