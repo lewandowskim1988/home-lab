@@ -35,6 +35,7 @@ spec:
               - deepseek-r1:8b
               - deepseek-r1:14b
               - qwen2.5-coder:14b
+              - llama3.1:8b
             run: []
         persistentVolume:
           enabled: true
