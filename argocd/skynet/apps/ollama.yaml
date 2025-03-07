@@ -37,6 +37,11 @@ spec:
               - qwen2.5-coder:14b
               - llama3.1:8b
             run: []
+            create:
+              - name: llama3.1-ctx32768
+                template: |
+                  FROM llama3.1:8b
+                  PARAMETER num_ctx 32768
         persistentVolume:
           enabled: true
           size: 50Gi
