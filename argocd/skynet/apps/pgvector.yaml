@@ -37,9 +37,9 @@ spec:
           repository: lewandowskim/postgres-vector
           tag: 17.4.0
         primary:
-          configuration: |-
+          extendedConfiguration: |-
             max_connections = 300
-            shared_buffers = 80MB
+            shared_buffers = 256MB
           resources:
             limits:
               memory: 850Mi
