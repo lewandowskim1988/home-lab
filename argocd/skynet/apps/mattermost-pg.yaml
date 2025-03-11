@@ -79,8 +79,6 @@ spec:
                   data:
                     DB_CONNECTION_STRING: |
                       "postgres://postgres:{{ `{{ .postgresPassword }}` }}@postgresql.mattermost.svc.cluster.local:5432/mattermost?connect_timeout=10"
-                    DB_CONNECTION_CHECK_URL: |
-                      "postgres://postgres:{{ `{{ .postgresPassword }}` }}@postgresql.mattermost.svc.cluster.local:5432/mattermost?connect_timeout=10"
               dataFrom:
                 - extract:
                     key: "/homelab/mattermost-postgres-password"
