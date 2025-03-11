@@ -40,7 +40,7 @@ spec:
     server: https://kubernetes.default.svc
   - namespace: pgvector
     server: https://kubernetes.default.svc
-  - namespace: postgres-test
+  - namespace: rocketchat
     server: https://kubernetes.default.svc
   # Deny all cluster-scoped resources from being created, except for Namespace
   clusterResourceWhitelist:
