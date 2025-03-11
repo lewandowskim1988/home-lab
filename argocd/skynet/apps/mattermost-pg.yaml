@@ -63,4 +63,24 @@ spec:
               dataFrom:
                 - extract:
                     key: "/homelab/mattermost-postgres-password"
-
+          - apiVersion: external-secrets.io/v1beta1
+            kind: ExternalSecret
+            metadata:
+              name: db-credentials
+            spec:
+              refreshInterval: 1h
+              secretStoreRef:
+                kind: ClusterSecretStore
+                name: gcp-store
+              target:
+                name: db-credentials
+                creationPolicy: Owner
+                template:
+                  data:
+                    DB_CONNECTION_STRING: |
+                      postgres://postgres:{{ `{{ .postgresPassword }}` }}@postgresql.mattermost.svc.cluster.local:5432/mattermost?connect_timeout=10
+                    DB_CONNECTION_CHECK_URL: |
+                      postgres://postgres:{{ `{{ .postgresPassword }}` }}@postgresql.mattermost.svc.cluster.local:5432/mattermost?connect_timeout=10
+              dataFrom:
+                - extract:
+                    key: "/homelab/mattermost-postgres-password"
