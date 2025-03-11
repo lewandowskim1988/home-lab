@@ -36,6 +36,7 @@ spec:
               - deepseek-r1:14b
               - qwen2.5-coder:14b
               - llama3.1:8b
+              - snowflake-arctic-embed2:568m
             run: []
             create:
               - name: llama3.1-ctx32768
