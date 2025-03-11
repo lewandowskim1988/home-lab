@@ -4,6 +4,8 @@ metadata:
   name: openebs-lvmpv
   labels:
     {{- include "common.labels" . | nindent 4 }}
+  annotations:
+    storageclass.kubernetes.io/is-default-class: "true"
 allowVolumeExpansion: true
 volumeBindingMode: WaitForFirstConsumer
 provisioner: local.csi.openebs.io
