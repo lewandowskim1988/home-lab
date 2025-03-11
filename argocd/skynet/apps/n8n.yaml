@@ -47,7 +47,7 @@ spec:
             type: dynamic
             storageClass: "openebs-lvmpv"
             size: 5Gi
-        extraEnv:
-          N8N_EDITOR_BASE_URL: "https://n8n.lewandowskim.com"
-          WEBHOOK_URL: "https://n8n.lewandowskim.com"
+          extraEnv:
+            N8N_EDITOR_BASE_URL: "https://n8n.lewandowskim.com"
+            WEBHOOK_URL: "https://n8n.lewandowskim.com"
 
