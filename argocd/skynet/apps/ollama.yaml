@@ -39,13 +39,9 @@ spec:
               - bge-m3:567m
             run: []
             create:
-              - name: llama3.1-ctx32768
+              - name: bge-m3-ctx32768
                 template: |
-                  FROM llama3.1:8b
-                  PARAMETER num_ctx 32768
-              - name: deepseek-r1-ctx32768
-                template: |
-                  FROM deepseek-r1:14b
+                  FROM bge-m3:567m
                   PARAMETER num_ctx 32768
         persistentVolume:
           enabled: true
