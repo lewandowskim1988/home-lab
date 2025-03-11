@@ -77,7 +77,7 @@ spec:
                 creationPolicy: Owner
                 template:
                   data:
-                    DB_CONNECTION_STRING: postgres://postgres:{{ `{{ .postgresPassword }}` }}@postgresql.mattermost.svc.cluster.local:5432/mattermost?connect_timeout=10
+                    DB_CONNECTION_STRING: postgres://postgres:{{ `{{ .postgresPassword }}` }}@postgresql.mattermost.svc.cluster.local:5432/mattermost?sslmode=disable
               dataFrom:
                 - extract:
                     key: "/homelab/mattermost-postgres-password"
