@@ -71,7 +71,7 @@ spec:
               refreshInterval: 1h
               secretStoreRef:
                 kind: ClusterSecretStore
-                name: gcp-store
+                name: aws-parameter-store
               target:
                 name: db-credentials
                 creationPolicy: Owner
