@@ -28,6 +28,10 @@ spec:
         fullnameOverride: rocketchat
         existingMongodbSecret: ""
         mongodb:
+          auth:
+            passwords:
+              - rocketchat
+            rootPassword: rocketchatroot
           persistence:
             storageClass: "openebs-lvmpv"
             size: 10Gi
@@ -35,6 +39,7 @@ spec:
           enabled: true
           storageClass: "openebs-lvmpv"
           size: 10Gi
+        host: rocketchat.lewandowskim.com
         ingress:
           enabled: true
           pathType: Prefix
@@ -46,4 +51,4 @@ spec:
           tls:
             - secretName: tls-wildcard-lewandowskim-com
               hosts:
-                - chrocketchat.lewandowskim.com
+                - rocketchat.lewandowskim.com
