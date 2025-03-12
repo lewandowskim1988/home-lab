@@ -54,5 +54,8 @@ spec:
                 limits:
                   cpu: 600m
                   memory: 700Mi
+            mattermostEnv:
+              - name: MM_SERVICESETTINGS_ALLOWEDUNTRUSTEDINTERNALCONNECTIONS
+                value: "true"
 
 
