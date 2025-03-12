@@ -56,6 +56,6 @@ spec:
                   memory: 700Mi
             mattermostEnv:
               - name: MM_SERVICESETTINGS_ALLOWEDUNTRUSTEDINTERNALCONNECTIONS
-                value: "true"
+                value: "https://n8n.lewandowskim.com"
 
 
