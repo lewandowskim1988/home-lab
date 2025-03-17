@@ -28,6 +28,19 @@ spec:
       values: |-
         nameOverride: "minio"
         fullnameOverride: "minio"
+        replicas: 1
+        persistence:
+          size: 10Gi
+        resources:
+          requests:
+            memory: 2Gi
+            cpu: 500m
+        buckets:
+          - name: argo-workflows-logs
+            policy: public
+            purge: true
+            versioning: false
+            objectlocking: false
         auth:
           existingSecret: "minio-user-password"
           secretKeys:
