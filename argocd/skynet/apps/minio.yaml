@@ -33,12 +33,14 @@ spec:
         replicas: 1
         persistence:
           size: 10Gi
-        resources:
-          requests:
-            memory: 2Gi
-            cpu: 500m
-        buckets:
-          - name: hashicorp
+        provisioning:
+          enabled: true
+          resources:
+            requests:
+              memory: 1Gi
+              cpu: 500m
+          buckets:
+            - name: hashicorp
         auth:
           existingSecret: "minio-user-password"
           secretKeys:
