@@ -28,6 +28,8 @@ spec:
       values: |-
         nameOverride: "minio"
         fullnameOverride: "minio"
+        global:
+          defaultStorageClass: "openebs-lvmpv"
         replicas: 1
         persistence:
           size: 10Gi
@@ -36,11 +38,7 @@ spec:
             memory: 2Gi
             cpu: 500m
         buckets:
-          - name: argo-workflows-logs
-            policy: public
-            purge: true
-            versioning: false
-            objectlocking: false
+          - name: hashicorp
         auth:
           existingSecret: "minio-user-password"
           secretKeys:
