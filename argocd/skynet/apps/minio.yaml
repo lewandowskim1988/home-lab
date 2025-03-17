@@ -1,0 +1,60 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: minio
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: 'minio'
+    server: 'https://kubernetes.default.svc'
+  project: apps
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
+    - ApplyOutOfSyncOnly=true
+    - PruneLast=true
+  source:
+    # https://charts.bitnami.com/bitnami
+    repoURL: 'registry-1.docker.io/bitnamicharts'
+    chart: minio
+    path: minio
+    targetRevision: 15.0.7
+    helm:
+      values: |-
+        nameOverride: "minio"
+        fullnameOverride: "minio"
+        auth:
+          existingSecret: "minio-user-password"
+          secretKeys:
+            rootUser: root-user
+            rootPassword: root-password
+        ingress:
+          enabled: true
+          ingressClassName: "nginx"
+          hostname: minio.lewandowskim.com
+          path: /
+          extraTls:
+          - hosts:
+              - minio.lewandowskim.com
+            secretName: tls-wildcard-lewandowskim-com
+        extraDeploy:
+          - apiVersion: external-secrets.io/v1beta1
+            kind: ExternalSecret
+            metadata:
+              name: minio-user-password
+            spec:
+              secretStoreRef:
+                name: aws-parameter-store
+                kind: ClusterSecretStore
+              refreshInterval: "1h"
+              target:
+                name: minio-user-password
+                deletionPolicy: "Delete"
+              dataFrom:
+                - extract:
+                    key: "/homelab/minio-user-password"

@@ -42,6 +42,8 @@ spec:
     server: https://kubernetes.default.svc
   - namespace: mattermost
     server: https://kubernetes.default.svc
+  - namespace: minio
+    server: https://kubernetes.default.svc
   # Deny all cluster-scoped resources from being created, except for Namespace
   clusterResourceWhitelist:
   - group: '*'
