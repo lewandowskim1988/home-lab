@@ -26,7 +26,7 @@ spec:
       values: |-
         nameOverride: mattermost
         fullnameOverride: mattermost
-        mattermostOperator
+        mattermostOperator:
           image:
             tag: v1.22.1
         mattermostCR:
