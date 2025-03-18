@@ -1,61 +1,61 @@
-# apiVersion: argoproj.io/v1alpha1
-# kind: Application
-# metadata:
-#   name: mattermost
-#   namespace: argocd
-#   finalizers:
-#   - resources-finalizer.argocd.argoproj.io
-# spec:
-#   destination:
-#     namespace: 'mattermost'
-#     server: 'https://kubernetes.default.svc'
-#   project: apps
-#   syncPolicy:
-#     automated:
-#       prune: true
-#       selfHeal: true
-#     syncOptions:
-#     - CreateNamespace=true
-#     - ApplyOutOfSyncOnly=true
-#     - PruneLast=true
-#   source:
-#     repoURL: https://helm.mattermost.com
-#     chart: mattermost-operator
-#     targetRevision: 1.0.2
-#     helm:
-#       values: |-
-#         nameOverride: mattermost
-#         fullnameOverride: mattermost
-#         mattermostCR:
-#           enabled: true
-#           name: skynet
-#           spec:
-#             database:
-#               external:
-#                 secret: db-credentials
-#             fileStore:
-#               local:
-#                 enabled: true
-#                 storageSize: 10Gi
-#             ingress:
-#               enabled: true
-#               annotations:
-#                 nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-#                 nginx.ingress.kubernetes.io/ssl-redirect: "true"
-#               host: mattermost.lewandowskim.com
-#               ingressClass: nginx
-#               tlsSecret: tls-wildcard-lewandowskim-com
-#             replicas: 1
-#             scheduling:
-#               resources:
-#                 requests:
-#                   cpu: 500m
-#                   memory: 600Mi
-#                 limits:
-#                   cpu: 600m
-#                   memory: 700Mi
-#             mattermostEnv:
-#               - name: MM_SERVICESETTINGS_ALLOWEDUNTRUSTEDINTERNALCONNECTIONS
-#                 value: "n8n.lewandowskim.com"
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: mattermost
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: 'mattermost'
+    server: 'https://kubernetes.default.svc'
+  project: apps
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
+    - ApplyOutOfSyncOnly=true
+    - PruneLast=true
+  source:
+    repoURL: https://helm.mattermost.com
+    chart: mattermost-operator
+    targetRevision: 1.0.2
+    helm:
+      values: |-
+        nameOverride: mattermost
+        fullnameOverride: mattermost
+        mattermostCR:
+          enabled: true
+          name: skynet
+          spec:
+            database:
+              external:
+                secret: db-credentials
+            fileStore:
+              local:
+                enabled: true
+                storageSize: 10Gi
+            ingress:
+              enabled: true
+              annotations:
+                nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+                nginx.ingress.kubernetes.io/ssl-redirect: "true"
+              host: mattermost.lewandowskim.com
+              ingressClass: nginx
+              tlsSecret: tls-wildcard-lewandowskim-com
+            replicas: 1
+            scheduling:
+              resources:
+                requests:
+                  cpu: 500m
+                  memory: 600Mi
+                limits:
+                  cpu: 600m
+                  memory: 700Mi
+            mattermostEnv:
+              - name: MM_SERVICESETTINGS_ALLOWEDUNTRUSTEDINTERNALCONNECTIONS
+                value: "n8n.lewandowskim.com"
 
 
