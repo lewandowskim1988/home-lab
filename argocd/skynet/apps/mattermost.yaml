@@ -26,6 +26,9 @@ spec:
       values: |-
         nameOverride: mattermost
         fullnameOverride: mattermost
+        image:
+          repository: mattermost/mattermost-operator
+          tag: v1.22.1
         mattermostCR:
           enabled: true
           name: skynet
