@@ -33,6 +33,7 @@ spec:
           enabled: true
           name: skynet
           spec:
+            version: 10.6.1
             database:
               external:
                 secret: db-credentials
