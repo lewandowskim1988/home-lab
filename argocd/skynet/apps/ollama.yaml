@@ -44,6 +44,10 @@ spec:
                 template: |
                   FROM bge-m3:567m
                   PARAMETER num_ctx 32768
+        resources:
+          requests:
+            memory: 4096Mi
+            cpu: 2000m
         persistentVolume:
           enabled: true
           size: 50Gi
