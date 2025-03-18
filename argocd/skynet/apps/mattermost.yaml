@@ -49,7 +49,7 @@ spec:
               host: mattermost.lewandowskim.com
               ingressClass: nginx
               tlsSecret: tls-wildcard-lewandowskim-com
-            replicas: 0
+            replicas: 1
             scheduling:
               resources:
                 requests:
