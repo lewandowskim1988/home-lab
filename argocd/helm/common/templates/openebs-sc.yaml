@@ -13,3 +13,4 @@ parameters:
   storage: "lvm"
   volgroup: "openebs"
   fsType: "ext4"
+  shared: "yes"
