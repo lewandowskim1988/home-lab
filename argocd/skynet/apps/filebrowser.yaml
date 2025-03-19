@@ -19,7 +19,7 @@ spec:
     - ApplyOutOfSyncOnly=true
     - PruneLast=true
   source:
-    path: 'argocd/helm/common'
+    path: 'argocd/helm/filebrowser'
     repoURL: https://github.com/lewandowskim1988/home-lab.git
     targetRevision: HEAD
     helm:
