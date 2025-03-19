@@ -52,4 +52,10 @@ spec:
               value: "https://n8n.lewandowskim.com"
             WEBHOOK_URL:
               value: "https://n8n.lewandowskim.com"
-
+          extraVolumes:
+            - name: share
+              persistentVolumeClaim:
+                name: filebrowser-rootdir
+          extraVolumeMounts:
+            - name: share
+              mountPath: /n8n/share
