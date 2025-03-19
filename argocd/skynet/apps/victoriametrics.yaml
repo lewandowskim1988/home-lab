@@ -81,6 +81,11 @@ spec:
                 scheme: http
                 static_configs:
                   - targets: ['gpu-operator-metrics-exporter.gpu-operator.svc.cluster.local:5000']
+              - job_name: 'metrics-server'
+                metrics_path: '/metrics'
+                scheme: https
+                static_configs:
+                  - targets: ['metrics-server.kube-system.svc.cluster.local:443']
         grafana:
           enabled: true
           resources:
