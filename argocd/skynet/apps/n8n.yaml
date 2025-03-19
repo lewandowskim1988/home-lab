@@ -55,7 +55,7 @@ spec:
           extraVolumes:
             - name: share
               persistentVolumeClaim:
-                name: filebrowser-rootdir
+                claimName: filebrowser-rootdir
           extraVolumeMounts:
             - name: share
               mountPath: /n8n/share
