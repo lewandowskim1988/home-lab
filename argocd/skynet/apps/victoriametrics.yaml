@@ -81,13 +81,6 @@ spec:
                 scheme: http
                 static_configs:
                   - targets: ['gpu-operator-metrics-exporter.gpu-operator.svc.cluster.local:5000']
-              - job_name: 'kubelet-resource'
-                metrics_path: '/metrics/resource'
-                scheme: https
-                tls_config:
-                  insecure_skip_verify: true
-                static_configs:
-                  - targets: ['192.168.3.10:10250']
         grafana:
           enabled: true
           resources:
