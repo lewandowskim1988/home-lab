@@ -84,6 +84,8 @@ spec:
               - job_name: 'metrics-server'
                 metrics_path: '/metrics'
                 scheme: https
+                tls_config:
+                  insecure_skip_verify: true
                 static_configs:
                   - targets: ['metrics-server.kube-system.svc.cluster.local:443']
         grafana:
