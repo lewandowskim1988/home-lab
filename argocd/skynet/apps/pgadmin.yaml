@@ -1,0 +1,47 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: pgadmin
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: pgadmin
+    server: 'https://kubernetes.default.svc'
+  project: apps
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
+    - ApplyOutOfSyncOnly=true
+    - PruneLast=true
+  source:
+    repoURL: https://helm.runix.net
+    chart: pgadmin4
+    targetRevision: 1.36.0
+    helm:
+      values: |-
+        nameOverride: pgadmin4
+        fullnameOverride: pgadmin4
+        ingress:
+          enabled: true
+          annotations:
+            nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+            nginx.ingress.kubernetes.io/ssl-redirect: "true"
+          ingressClassName: "nginx"
+          hosts:
+            - host: pgadmin.lewandowskim.com
+              paths:
+                - path: /
+                  pathType: Prefix
+          tls:
+            - hosts:
+                - pgadmin.lewandowskim.com
+              secretName: tls-wildcard-lewandowskim-com
+        persistentVolume:
+          size: 1Gi
+          storageClass: "openebs-lvmpv"
+        extraDeploy: []
