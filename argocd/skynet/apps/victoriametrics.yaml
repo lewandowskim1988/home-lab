@@ -45,6 +45,8 @@ spec:
           enabled: true
           spec:
             retentionPeriod: "60d"
+            extraArgs:
+              maxLabelsPerTimeseries: "130"
             storage:
               accessModes:
                 - ReadWriteOnce
