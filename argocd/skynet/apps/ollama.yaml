@@ -35,6 +35,7 @@ spec:
               - deepseek-r1:14b
               - qwen2.5-coder:14b
               - llama3.1:8b
+              - llama3.2:1b
               - bge-m3:567m
               - gemma3:12b
             run: []
