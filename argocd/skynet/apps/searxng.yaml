@@ -42,9 +42,11 @@ spec:
               nginx.ingress.kubernetes.io/ssl-redirect: "true"
             ingressClassName: "nginx"
             hosts:
-              - host: searxng.lewandowskim.com
+              -
+                host: searxng.lewandowskim.com
                 paths:
-                  - path: "/"
+                  -
+                    path: "/"
                     pathType: Prefix
                     service:
                       name: searxng
