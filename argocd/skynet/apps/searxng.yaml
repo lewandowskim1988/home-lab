@@ -35,7 +35,7 @@ spec:
             size: 10Gi
         ingress:
           main:
-            enabled: true
+            enabled: false
             primary: true
             annotations:
               nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
