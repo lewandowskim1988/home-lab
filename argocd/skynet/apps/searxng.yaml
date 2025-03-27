@@ -28,6 +28,7 @@ spec:
         fullnameOverride: searxng
         env:
           INSTANCE_NAME: "searxng"
+          BASE_URL: "http://searxng.searxng.svc.cluster.local:8080/"
         persistence:
           config:
             enabled: true
