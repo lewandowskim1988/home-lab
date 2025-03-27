@@ -44,7 +44,7 @@ spec:
             hosts:
               - host: searxng.lewandowskim.com
                 paths:
-                  - path: /
+                  - path: "/"
                     pathType: Prefix
                     service:
                       name: searxng
