@@ -34,7 +34,7 @@ spec:
     server: https://kubernetes.default.svc
   - namespace: n8n
     server: https://kubernetes.default.svc
-  - namespace: crawl4ai
+  - namespace: searxng
     server: https://kubernetes.default.svc
   - namespace: openebs
     server: https://kubernetes.default.svc
