@@ -33,28 +33,28 @@ spec:
             enabled: true
             storageClass: openebs-lvmpv
             size: 10Gi
-        ingress:
-          main:
-            enabled: false
-            primary: true
-            annotations:
-              nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-              nginx.ingress.kubernetes.io/ssl-redirect: "true"
-            ingressClassName: "nginx"
-            hosts:
-              -
-                host: searxng.lewandowskim.com
-                paths:
-                  -
-                    path: "/"
-                    pathType: Prefix
-                    service:
-                      name: searxng
-                      port: 8080
-            tls:
-              - hosts:
-                - searxng.lewandowskim.com
-              secretName: tls-wildcard-lewandowskim-com
+        # ingress:
+        #   main:
+        #     enabled: false
+        #     primary: true
+        #     annotations:
+        #       nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+        #       nginx.ingress.kubernetes.io/ssl-redirect: "true"
+        #     ingressClassName: "nginx"
+        #     hosts:
+        #       -
+        #         host: searxng.lewandowskim.com
+        #         paths:
+        #           -
+        #             path: "/"
+        #             pathType: Prefix
+        #             service:
+        #               name: searxng
+        #               port: 8080
+        #     tls:
+        #       - hosts:
+        #         - searxng.lewandowskim.com
+        #       secretName: tls-wildcard-lewandowskim-com
         searxng:
           config:
             use_default_settings: true
