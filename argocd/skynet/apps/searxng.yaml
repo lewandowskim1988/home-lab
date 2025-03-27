@@ -63,3 +63,7 @@ spec:
             use_default_settings: true
             server:
               secret_key: a42423f21be10066e09c5359
+            search:
+              formats:
+                - html
+                - json
