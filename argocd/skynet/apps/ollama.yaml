@@ -21,7 +21,7 @@ spec:
   source:
     repoURL: https://otwld.github.io/ollama-helm/
     chart: ollama
-    targetRevision: 1.12.0
+    targetRevision: 1.13.0
     helm:
       values: |-
         nameOverride: ollama
@@ -37,7 +37,6 @@ spec:
               - llama3.1:8b
               - llama3.2:1b
               - bge-m3:567m
-              - gemma3:12b
             run: []
             create:
               - name: bge-m3-ctx32768
