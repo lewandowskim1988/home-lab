@@ -37,6 +37,7 @@ spec:
               - llama3.1:8b
               - llama3.2:1b
               - bge-m3:567m
+              - qwq:32b
             run: []
             create:
               - name: bge-m3-ctx32768
@@ -49,11 +50,11 @@ spec:
                   PARAMETER num_ctx 32768
         resources:
           requests:
-            memory: 4096Mi
-            cpu: 2000m
+            memory: 6000Mi
+            cpu: 4000m
         persistentVolume:
           enabled: true
-          size: 50Gi
+          size: 100Gi
           storageClass: "openebs-lvmpv"
         extraEnv:
           - name: OLLAMA_FLASH_ATTENTION
