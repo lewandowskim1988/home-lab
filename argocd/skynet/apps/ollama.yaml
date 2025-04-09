@@ -39,7 +39,6 @@ spec:
               - llama3.2:1b
               - bge-m3:567m
               - qwq:32b
-              - hf.co/jinaai/jina-embeddings-v3:latest
             run: []
             create:
               - name: bge-m3-ctx32768
