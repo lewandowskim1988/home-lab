@@ -39,6 +39,7 @@ spec:
               - llama3.2:1b
               - bge-m3:567m
               - qwq:32b
+              - linux6200/bge-reranker-v2-m3
             run: []
             create:
               - name: bge-m3-ctx32768
