@@ -57,10 +57,10 @@ spec:
             resources:
               limits:
                 cpu: 250m
-                memory: 800Mi
+                memory: 1.3Gi
               requests:
                 cpu: 200m
-                memory: 600Mi
+                memory: 1Gi
         alertmanager:
           enabled: false
         vmalert:
