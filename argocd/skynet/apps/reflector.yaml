@@ -21,7 +21,7 @@ spec:
   source:
     repoURL: https://emberstack.github.io/helm-charts
     chart: reflector
-    targetRevision: 7.1.288
+    targetRevision: 9.0.344
     helm:
       values: |-
         nameOverride: reflector
