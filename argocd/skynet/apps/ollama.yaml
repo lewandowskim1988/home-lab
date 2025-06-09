@@ -35,15 +35,15 @@ spec:
               - devstral:24b
               - mistral-small3.1:24b
             run: []
-            create:
-              - name: bge-m3-ctx32768
-                template: |
-                  FROM bge-m3:567m
-                  PARAMETER num_ctx 32768
-              - name: llama3.1-ctx32768
-                template: |
-                  FROM llama3.1:8b
-                  PARAMETER num_ctx 32768
+            create: []
+              # - name: bge-m3-ctx32768
+              #   template: |
+              #     FROM bge-m3:567m
+              #     PARAMETER num_ctx 32768
+              # - name: llama3.1-ctx32768
+              #   template: |
+              #     FROM llama3.1:8b
+              #     PARAMETER num_ctx 32768
         resources:
           requests:
             memory: 6000Mi
