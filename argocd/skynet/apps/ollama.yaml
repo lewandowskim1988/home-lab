@@ -21,7 +21,7 @@ spec:
   source:
     repoURL: https://otwld.github.io/ollama-helm/
     chart: ollama
-    targetRevision: 1.16.0
+    targetRevision: 1.19.0
     helm:
       values: |-
         nameOverride: ollama
@@ -32,11 +32,7 @@ spec:
             type: "amd"
           models:
             pull:
-              - deepseek-r1:14b
-              - qwen2.5-coder:14b
-              - llama3.1:8b
-              - llama3.2:1b
-              - bge-m3:567m
+              - devstral:24b
               - mistral-small3.1:24b
             run: []
             create:

@@ -21,19 +21,19 @@ spec:
   source:
     repoURL: https://helm.mattermost.com
     chart: mattermost-operator
-    targetRevision: 1.0.2
+    targetRevision: 1.0.3
     helm:
       values: |-
         nameOverride: mattermost
         fullnameOverride: mattermost
-        mattermostOperator:
-          image:
-            tag: v1.22.1
+        # mattermostOperator:
+        #   image:
+        #     tag: v1.23.0
         mattermostCR:
           enabled: true
           name: skynet
           spec:
-            version: 10.6.1
+            version: 10.9.0
             database:
               external:
                 secret: db-credentials
