@@ -48,7 +48,7 @@ spec:
             adminPasswordKey: postgresPassword
             replicationPasswordKey: replicationPassword
         extraDeploy:
-          - apiVersion: external-secrets.io/v1beta1
+          - apiVersion: external-secrets.io/v1
             kind: ExternalSecret
             metadata:
               name: mattermost-postgres-password
@@ -63,7 +63,7 @@ spec:
               dataFrom:
                 - extract:
                     key: "/homelab/mattermost-postgres-password"
-          - apiVersion: external-secrets.io/v1beta1
+          - apiVersion: external-secrets.io/v1
             kind: ExternalSecret
             metadata:
               name: db-credentials
