@@ -28,7 +28,6 @@ spec:
         fullnameOverride: rocketchat
         existingMongodbSecret: ""
         mongodb:
-          initdbScriptsConfigMap: ""
           auth:
             passwords:
               - rocketchat
