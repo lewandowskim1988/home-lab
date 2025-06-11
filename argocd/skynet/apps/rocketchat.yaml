@@ -50,3 +50,17 @@ spec:
           - hosts:
             - rocketchat.lewandowskim.com
             secretName: tls-wildcard-lewandowskim-com
+        extraEnv:
+          - name: Accounts_OpenIDConnectSettings
+            value: |
+              {
+                "enabled": true,
+                "clientId": "rocket-chat-client",
+                "clientSecret": "Xxm7ztc8HyKlviIQcNtMEyxqIc2DgxG4",
+                "serverURL": "https://keycloak.lewandowskim.com/auth/realms/master",
+                "authorizationEndpoint": "https://keycloak.lewandowskim.com/auth/realms/master/protocol/openid-connect/auth",
+                "tokenEndpoint": "https://keycloak.lewandowskim.com/auth/realms/master/protocol/openid-connect/token",
+                "userInfoEndpoint": "https://keycloak.lewandowskim.com/auth/realms/master/protocol/openid-connect/userinfo",
+                "scope": ["openid", "email"],
+                "responseType": "code"
+              }
