@@ -1,0 +1,55 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: keycloak
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: 'keycloak'
+    server: 'https://kubernetes.default.svc'
+  project: apps
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
+    - ApplyOutOfSyncOnly=true
+    - PruneLast=true
+  source:
+    repoURL: 'registry-1.docker.io/bitnamicharts'
+    chart: keycloak
+    path: keycloak
+    targetRevision: 24.7.3
+    helm:
+      values: |-
+        nameOverride: keycloak
+        fullnameOverride: keycloak
+        global:
+          storageClass: "openebs-lvmpv"
+        auth:
+          adminUser: admin
+          adminPassword: "7d38ecc447d4c1ddbb8622c5"
+        ingress:
+          enabled: true
+          ingressClassName: nginx
+          hostname: keycloak.lewandowskim.com
+          annotations:
+            nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+            nginx.ingress.kubernetes.io/ssl-redirect: "true"
+          tls: true
+          extraTls:
+          - hosts:
+            - keycloak.lewandowskim.com
+            secretName: tls-wildcard-lewandowskim-com
+        postgresql:
+          enabled: true
+          auth:
+            password: "71f3f940c086d06995dc095d"
+        extraEnvVars:
+          - name: KC_HOSTNAME_URL
+            value: "https://keycloak.lewandowskim.com"
+          - name: KC_HOSTNAME_ADMIN_URL
+            value: "https://keycloak.lewandowskim.com"

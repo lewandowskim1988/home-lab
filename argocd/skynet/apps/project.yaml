@@ -40,7 +40,7 @@ spec:
     server: https://kubernetes.default.svc
   - namespace: pgvector
     server: https://kubernetes.default.svc
-  - namespace: mattermost
+  - namespace: keycloak
     server: https://kubernetes.default.svc
   - namespace: pgadmin
     server: https://kubernetes.default.svc
