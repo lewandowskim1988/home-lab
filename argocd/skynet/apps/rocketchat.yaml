@@ -50,12 +50,28 @@ spec:
           - hosts:
             - rocketchat.lewandowskim.com
             secretName: tls-wildcard-lewandowskim-com
-        # extraEnv:
-        #   - name: OVERWRITE_SETTING_Accounts_OAuth_Custom_Keycloak
-        #     value: "true"
-        #   - name: OVERWRITE_SETTING_Accounts_OAuth_Custom_Keycloak_id
-        #     value: rocket-chat-client
-        #   - name: OVERWRITE_SETTING_Accounts_OAuth_Custom_Keycloak_secret
-        #     value: "Xxm7ztc8HyKlviIQcNtMEyxqIc2DgxG4
-        #   - name: OVERWRITE_SETTING_Accounts_OAuth_Custom_Keycloak_url
-        #     value: "https://keycloak.lewandowskim.com/auth/realms/"
+        extraEnv:
+          - name: OVERWRITE_SETTING_Accounts_OAuth_Custom-dupa
+            value: "true"
+          - name: OVERWRITE_SETTING_Accounts_OAuth_Custom-dupa-url
+            value: https://keycloak.lewandowskim.com/realms/master/protocol
+          - name: OVERWRITE_SETTING_Accounts_OAuth_Custom-dupa-token_path
+            value: "/openid-connect/token"
+          - name: OVERWRITE_SETTING_Accounts_OAuth_Custom-dupa-token_send_via
+            value: "Header"
+          - name: OVERWRITE_SETTING_Accounts_OAuth_Custom-dupa-identity_token_send_via
+            value: "Header"
+          - name: OVERWRITE_SETTING_Accounts_OAuth_Custom-dupa-identity_path
+            value: "/openid-connect/userinfo"
+          - name: OVERWRITE_SETTING_Accounts_OAuth_Custom-dupa-authorize_path
+            value: "/openid-connect/auth"
+          - name: OVERWRITE_SETTING_Accounts_OAuth_Custom-dupa-scope
+            value: "openid"
+          - name: OVERWRITE_SETTING_Accounts_OAuth_Custom-dupa-access_token_param
+            value: "access_token"
+          - name: OVERWRITE_SETTING_Accounts_OAuth_Custom-dupa-id
+            value: "rocket-chat-client"
+          - name: OVERWRITE_SETTING_Accounts_OAuth_Custom-dupa-secret
+            value: "Xxm7ztc8HyKlviIQcNtMEyxqIc2DgxG4"
+          - name: OVERWRITE_SETTING_Accounts_OAuth_Custom-dupa-button_label_text
+            value: "Login with Dupa"
