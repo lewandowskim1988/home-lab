@@ -51,27 +51,34 @@ spec:
             - rocketchat.lewandowskim.com
             secretName: tls-wildcard-lewandowskim-com
         extraEnv:
-          - name: OVERWRITE_SETTING_Accounts_OAuth_Custom-Dupa
-            value: "true"
-          - name: OVERWRITE_SETTING_Accounts_OAuth_Custom-Dupa-url
-            value: https://keycloak.lewandowskim.com/realms/master/protocol
-          - name: OVERWRITE_SETTING_Accounts_OAuth_Custom-Dupa-token_path
-            value: "/openid-connect/token"
-          - name: OVERWRITE_SETTING_Accounts_OAuth_Custom-Dupa-token_send_via
-            value: "Header"
-          - name: OVERWRITE_SETTING_Accounts_OAuth_Custom-Dupa-identity_token_send_via
-            value: "Header"
-          - name: OVERWRITE_SETTING_Accounts_OAuth_Custom-Dupa-identity_path
-            value: "/openid-connect/userinfo"
-          - name: OVERWRITE_SETTING_Accounts_OAuth_Custom-Dupa-authorize_path
-            value: "/openid-connect/auth"
-          - name: OVERWRITE_SETTING_Accounts_OAuth_Custom-Dupa-scope
-            value: "openid"
-          - name: OVERWRITE_SETTING_Accounts_OAuth_Custom-Dupa-access_token_param
-            value: "access_token"
-          - name: OVERWRITE_SETTING_Accounts_OAuth_Custom-Dupa-id
-            value: "rocket-chat-client"
-          - name: OVERWRITE_SETTING_Accounts_OAuth_Custom-Dupa-secret
-            value: "Xxm7ztc8HyKlviIQcNtMEyxqIc2DgxG4"
-          - name: OVERWRITE_SETTING_Accounts_OAuth_Custom-Dupa-button_label_text
-            value: "Login with Dupa"
+          - name: ADMIN_USERNAME
+            value: "superadmin"
+          - name: ADMIN_NAME
+            value: "superadmin"
+          - name: ADMIN_PASS
+            value: "cdf1dafb6fb05f2f2205cb5e"
+          - name: ADMIN_EMAIL
+            value: michal.lewandowski1988@gmail.com
+
+          # - name: OVERWRITE_SETTING_Accounts_OAuth_Custom-Dupa-url
+          #   value: https://keycloak.lewandowskim.com/realms/master/protocol
+          # - name: OVERWRITE_SETTING_Accounts_OAuth_Custom-Dupa-token_path
+          #   value: "/openid-connect/token"
+          # - name: OVERWRITE_SETTING_Accounts_OAuth_Custom-Dupa-token_send_via
+          #   value: "Header"
+          # - name: OVERWRITE_SETTING_Accounts_OAuth_Custom-Dupa-identity_token_send_via
+          #   value: "Header"
+          # - name: OVERWRITE_SETTING_Accounts_OAuth_Custom-Dupa-identity_path
+          #   value: "/openid-connect/userinfo"
+          # - name: OVERWRITE_SETTING_Accounts_OAuth_Custom-Dupa-authorize_path
+          #   value: "/openid-connect/auth"
+          # - name: OVERWRITE_SETTING_Accounts_OAuth_Custom-Dupa-scope
+          #   value: "openid"
+          # - name: OVERWRITE_SETTING_Accounts_OAuth_Custom-Dupa-access_token_param
+          #   value: "access_token"
+          # - name: OVERWRITE_SETTING_Accounts_OAuth_Custom-Dupa-id
+          #   value: "rocket-chat-client"
+          # - name: OVERWRITE_SETTING_Accounts_OAuth_Custom-Dupa-secret
+          #   value: "Xxm7ztc8HyKlviIQcNtMEyxqIc2DgxG4"
+          # - name: OVERWRITE_SETTING_Accounts_OAuth_Custom-Dupa-button_label_text
+          #   value: "Login with Dupa"
