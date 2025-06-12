@@ -1,61 +1,61 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: rocketchat
-  namespace: argocd
-  finalizers:
-  - resources-finalizer.argocd.argoproj.io
-spec:
-  destination:
-    namespace: 'rocketchat'
-    server: 'https://kubernetes.default.svc'
-  project: apps
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-    - CreateNamespace=true
-    - ApplyOutOfSyncOnly=true
-    - PruneLast=true
-  source:
-    repoURL: https://rocketchat.github.io/helm-charts
-    chart: rocketchat
-    targetRevision: 6.25.0
-    helm:
-      values: |-
-        nameOverride: rocketchat
-        fullnameOverride: rocketchat
-        existingMongodbSecret: ""
-        mongodb:
-          auth:
-            passwords:
-              - rocketchat
-            rootPassword: rocketchatroot
-          persistence:
-            storageClass: "openebs-lvmpv"
-            size: 10Gi
-        persistence:
-          enabled: true
-          storageClass: "openebs-lvmpv"
-          size: 10Gi
-        host: rocketchat.lewandowskim.com
-        ingress:
-          enabled: true
-          ingressClassName: "nginx"
-          annotations:
-            nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-            nginx.ingress.kubernetes.io/ssl-redirect: "true"
-          tls:
-          - hosts:
-            - rocketchat.lewandowskim.com
-            secretName: tls-wildcard-lewandowskim-com
-        extraEnv:
-          - name: OVERWRITE_SETTING_Accounts_OAuth_Custom_Keycloak
-            value: "true"
-          - name: OVERWRITE_SETTING_Accounts_OAuth_Custom_Keycloak_id
-            value: rocket-chat-client
-          - name: OVERWRITE_SETTING_Accounts_OAuth_Custom_Keycloak_secret
-            value: "Xxm7ztc8HyKlviIQcNtMEyxqIc2DgxG4
-          - name: OVERWRITE_SETTING_Accounts_OAuth_Custom_Keycloak_url
-            value: "https://keycloak.lewandowskim.com/auth/realms/"
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: rocketchat
+#   namespace: argocd
+#   finalizers:
+#   - resources-finalizer.argocd.argoproj.io
+# spec:
+#   destination:
+#     namespace: 'rocketchat'
+#     server: 'https://kubernetes.default.svc'
+#   project: apps
+#   syncPolicy:
+#     automated:
+#       prune: true
+#       selfHeal: true
+#     syncOptions:
+#     - CreateNamespace=true
+#     - ApplyOutOfSyncOnly=true
+#     - PruneLast=true
+#   source:
+#     repoURL: https://rocketchat.github.io/helm-charts
+#     chart: rocketchat
+#     targetRevision: 6.25.0
+#     helm:
+#       values: |-
+#         nameOverride: rocketchat
+#         fullnameOverride: rocketchat
+#         existingMongodbSecret: ""
+#         mongodb:
+#           auth:
+#             passwords:
+#               - rocketchat
+#             rootPassword: rocketchatroot
+#           persistence:
+#             storageClass: "openebs-lvmpv"
+#             size: 10Gi
+#         persistence:
+#           enabled: true
+#           storageClass: "openebs-lvmpv"
+#           size: 10Gi
+#         host: rocketchat.lewandowskim.com
+#         ingress:
+#           enabled: true
+#           ingressClassName: "nginx"
+#           annotations:
+#             nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+#             nginx.ingress.kubernetes.io/ssl-redirect: "true"
+#           tls:
+#           - hosts:
+#             - rocketchat.lewandowskim.com
+#             secretName: tls-wildcard-lewandowskim-com
+#         extraEnv:
+#           - name: OVERWRITE_SETTING_Accounts_OAuth_Custom_Keycloak
+#             value: "true"
+#           - name: OVERWRITE_SETTING_Accounts_OAuth_Custom_Keycloak_id
+#             value: rocket-chat-client
+#           - name: OVERWRITE_SETTING_Accounts_OAuth_Custom_Keycloak_secret
+#             value: "Xxm7ztc8HyKlviIQcNtMEyxqIc2DgxG4
+#           - name: OVERWRITE_SETTING_Accounts_OAuth_Custom_Keycloak_url
+#             value: "https://keycloak.lewandowskim.com/auth/realms/"
