@@ -51,27 +51,27 @@ spec:
             - rocketchat.lewandowskim.com
             secretName: tls-wildcard-lewandowskim-com
         extraEnv:
-          - name: OVERWRITE_SETTING_Accounts_OAuth_Custom-dupa
+          - name: OVERWRITE_SETTING_Accounts_OAuth_Custom-Dupa
             value: "true"
-          - name: OVERWRITE_SETTING_Accounts_OAuth_Custom-dupa-url
+          - name: OVERWRITE_SETTING_Accounts_OAuth_Custom-Dupa-url
             value: https://keycloak.lewandowskim.com/realms/master/protocol
-          - name: OVERWRITE_SETTING_Accounts_OAuth_Custom-dupa-token_path
+          - name: OVERWRITE_SETTING_Accounts_OAuth_Custom-Dupa-token_path
             value: "/openid-connect/token"
-          - name: OVERWRITE_SETTING_Accounts_OAuth_Custom-dupa-token_send_via
+          - name: OVERWRITE_SETTING_Accounts_OAuth_Custom-Dupa-token_send_via
             value: "Header"
-          - name: OVERWRITE_SETTING_Accounts_OAuth_Custom-dupa-identity_token_send_via
+          - name: OVERWRITE_SETTING_Accounts_OAuth_Custom-Dupa-identity_token_send_via
             value: "Header"
-          - name: OVERWRITE_SETTING_Accounts_OAuth_Custom-dupa-identity_path
+          - name: OVERWRITE_SETTING_Accounts_OAuth_Custom-Dupa-identity_path
             value: "/openid-connect/userinfo"
-          - name: OVERWRITE_SETTING_Accounts_OAuth_Custom-dupa-authorize_path
+          - name: OVERWRITE_SETTING_Accounts_OAuth_Custom-Dupa-authorize_path
             value: "/openid-connect/auth"
-          - name: OVERWRITE_SETTING_Accounts_OAuth_Custom-dupa-scope
+          - name: OVERWRITE_SETTING_Accounts_OAuth_Custom-Dupa-scope
             value: "openid"
-          - name: OVERWRITE_SETTING_Accounts_OAuth_Custom-dupa-access_token_param
+          - name: OVERWRITE_SETTING_Accounts_OAuth_Custom-Dupa-access_token_param
             value: "access_token"
-          - name: OVERWRITE_SETTING_Accounts_OAuth_Custom-dupa-id
+          - name: OVERWRITE_SETTING_Accounts_OAuth_Custom-Dupa-id
             value: "rocket-chat-client"
-          - name: OVERWRITE_SETTING_Accounts_OAuth_Custom-dupa-secret
+          - name: OVERWRITE_SETTING_Accounts_OAuth_Custom-Dupa-secret
             value: "Xxm7ztc8HyKlviIQcNtMEyxqIc2DgxG4"
-          - name: OVERWRITE_SETTING_Accounts_OAuth_Custom-dupa-button_label_text
+          - name: OVERWRITE_SETTING_Accounts_OAuth_Custom-Dupa-button_label_text
             value: "Login with Dupa"
