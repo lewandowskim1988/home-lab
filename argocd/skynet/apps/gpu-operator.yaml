@@ -21,7 +21,7 @@ spec:
   source:
     repoURL: https://rocm.github.io/gpu-operator
     chart: gpu-operator-charts
-    targetRevision: v1.3.0
+    targetRevision: v1.3.1
     helm:
       values: |-
         nameOverride: gpu-operator
