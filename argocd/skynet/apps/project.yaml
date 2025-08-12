@@ -34,17 +34,9 @@ spec:
     server: https://kubernetes.default.svc
   - namespace: n8n
     server: https://kubernetes.default.svc
-  - namespace: searxng
-    server: https://kubernetes.default.svc
   - namespace: openebs
     server: https://kubernetes.default.svc
   - namespace: pgvector
-    server: https://kubernetes.default.svc
-  - namespace: keycloak
-    server: https://kubernetes.default.svc
-  - namespace: pgadmin
-    server: https://kubernetes.default.svc
-  - namespace: rocketchat
     server: https://kubernetes.default.svc
   # Deny all cluster-scoped resources from being created, except for Namespace
   clusterResourceWhitelist:
