@@ -36,6 +36,7 @@ spec:
               - mistral-small3.2:24b
               - bge-m3:567m
               - llama3.2:3b
+              - qwen2.5vl:7b-q8_0
             run: []
             create:
               - name: bge-m3-ctx32768
