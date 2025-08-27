@@ -83,6 +83,11 @@ spec:
                 scheme: http
                 static_configs:
                   - targets: ['gpu-operator-metrics-exporter.gpu-operator.svc.cluster.local:5000']
+              - job_name: 'ingress-nginx-endpoints'
+                metrics_path: '/metrics'
+                scheme: http
+                static_configs:
+                  - targets: ['ingress-nginx-controller-metrics.ingress-nginx.svc.cluster.local:10254']
         grafana:
           enabled: true
           resources:

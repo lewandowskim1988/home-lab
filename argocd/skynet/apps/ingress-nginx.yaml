@@ -40,3 +40,5 @@ spec:
             maxReplicas: 3
             targetCPUUtilizationPercentage: 85
             targetMemoryUtilizationPercentage: 85
+          metrics:
+            enabled: true
