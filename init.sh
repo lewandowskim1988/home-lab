@@ -44,10 +44,10 @@ sudo sysctl -w net.ipv4.ip_forward=1
 sudo iptables -t nat -A POSTROUTING -s 10.66.66.0/24 -o enp112s0 -j MASQUERADE
 
 # Prepare disk for OpenEBS
-sudo pvcreate /dev/nvme0n1p4
-sudo vgcreate openebs /dev/nvme0n1p4
+sudo pvcreate /dev/nvme0n1p3
+sudo vgcreate openebs /dev/nvme0n1p3
 
-curl -sfL https://get.k3s.io | K3S_KUBECONFIG_MODE="644" INSTALL_K3S_EXEC="server" sh -s - --disable traefik
+curl -sfL https://get.k3s.io | K3S_KUBECONFIG_MODE="644" INSTALL_K3S_EXEC="server" sh -s - --disable traefik --disable local-storage
 
 helm template argocd \
-  -f values-skynet.yaml argo/argo-cd | kubectl apply -f-
+  -f argocd/values-skynet.yaml argo/argo-cd | kubectl apply -f-
