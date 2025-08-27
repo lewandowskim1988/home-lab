@@ -615,7 +615,7 @@ data:
                 "instant": false,
                 "interval": "",
                 "intervalFactor": 1,
-                "legendFormat": "{{ `{{ ingress }}` }}",
+                "legendFormat": "{{  ingress  }}",
                 "metric": "network",
                 "refId": "A",
                 "step": 10
@@ -783,7 +783,7 @@ data:
                 "instant": false,
                 "interval": "10s",
                 "intervalFactor": 1,
-                "legendFormat": "{{ `{{ ingress }}` }}",
+                "legendFormat": "{{  ingress  }}",
                 "metric": "container_memory_usage:sort_desc",
                 "refId": "A",
                 "step": 10
@@ -1392,7 +1392,7 @@ data:
                 "hide": false,
                 "instant": true,
                 "intervalFactor": 1,
-                "legendFormat": "{{ `{{ ingress }}` }}",
+                "legendFormat": "{{  ingress  }}",
                 "refId": "A"
               },
               {
@@ -1405,7 +1405,7 @@ data:
                 "hide": false,
                 "instant": true,
                 "intervalFactor": 1,
-                "legendFormat": "{{ `{{ ingress }}` }}",
+                "legendFormat": "{{  ingress  }}",
                 "refId": "B"
               },
               {
@@ -1418,7 +1418,7 @@ data:
                 "hide": false,
                 "instant": true,
                 "intervalFactor": 1,
-                "legendFormat": "{{ `{{ destination_service }}` }}",
+                "legendFormat": "{{  destination_service  }}",
                 "refId": "C"
               },
               {
@@ -1432,7 +1432,7 @@ data:
                 "instant": true,
                 "interval": "",
                 "intervalFactor": 1,
-                "legendFormat": "{{ `{{ ingress }}` }}",
+                "legendFormat": "{{  ingress  }}",
                 "refId": "D"
               },
               {
@@ -1444,7 +1444,7 @@ data:
                 "format": "table",
                 "instant": true,
                 "intervalFactor": 1,
-                "legendFormat": "{{ `{{ ingress }}` }}",
+                "legendFormat": "{{  ingress  }}",
                 "refId": "E"
               }
             ],
@@ -1685,7 +1685,7 @@ data:
                 "expr": "sum(increase(nginx_ingress_controller_request_duration_seconds_bucket{ingress!=\"\",controller_pod=~\"$controller\",controller_class=~\"$controller_class\",controller_namespace=~\"$namespace\",ingress=~\"$ingress\",exported_namespace=~\"$exported_namespace\"}[2m])) by (le)",
                 "format": "heatmap",
                 "interval": "",
-                "legendFormat": "{{ `{{le}}` }}",
+                "legendFormat": "{{ le }}",
                 "refId": "A"
               }
             ],
@@ -1827,7 +1827,7 @@ data:
                 "expr": "avg(nginx_ingress_controller_ssl_expire_time_seconds{kubernetes_pod_name=~\"$controller\",namespace=~\"$namespace\",ingress=~\"$ingress\"}) by (host) - time()",
                 "format": "time_series",
                 "intervalFactor": 1,
-                "legendFormat": "{{ `{{ host }}` }}",
+                "legendFormat": "{{  host  }}",
                 "metric": "gke_letsencrypt_cert_expiration",
                 "refId": "A",
                 "step": 1
