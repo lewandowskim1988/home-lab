@@ -29,7 +29,7 @@ spec:
         sftp:
           users:
             - name: michal
-              pass: ""
+              pass: "michal"
               dirs:
                 - share
               pubKeys: []
