@@ -29,3 +29,4 @@ spec:
         persistentVolume:
           enabled: true
           size: 10Gi
+          subPath: none
