@@ -38,6 +38,8 @@ spec:
     server: https://kubernetes.default.svc
   - namespace: secretgen-controller
     server: https://kubernetes.default.svc
+  - namespace: media
+    server: https://kubernetes.default.svc
   # Deny all cluster-scoped resources from being created, except for Namespace
   clusterResourceWhitelist:
   - group: '*'
