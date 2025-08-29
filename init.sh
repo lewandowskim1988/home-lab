@@ -47,6 +47,10 @@ sudo iptables -t nat -A POSTROUTING -s 10.66.66.0/24 -o enp112s0 -j MASQUERADE
 sudo pvcreate /dev/nvme0n1p3
 sudo vgcreate openebs /dev/nvme0n1p3
 
+sudo sysctl -w fs.inotify.max_user_watches=2099999999
+sudo sysctl -w fs.inotify.max_user_instances=2099999999
+sudo sysctl -w fs.inotify.max_queued_events=2099999999
+
 curl -sfL https://get.k3s.io | K3S_KUBECONFIG_MODE="644" INSTALL_K3S_EXEC="server" sh -s - --disable traefik --disable local-storage
 
 helm template argocd \
