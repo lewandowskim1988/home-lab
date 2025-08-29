@@ -88,6 +88,11 @@ spec:
                 scheme: http
                 static_configs:
                   - targets: ['ingress-nginx-controller-metrics.ingress-nginx.svc.cluster.local:10254']
+              - job_name: 'scaphandre'
+                metrics_path: '/metrics'
+                scheme: http
+                static_configs:
+                  - targets: ['scaphandre.scaphandre.svc.cluster.local:8080']
         grafana:
           enabled: true
           resources:
