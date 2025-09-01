@@ -14,3 +14,20 @@ parameters:
   volgroup: "openebs"
   fsType: "ext4"
   shared: "yes"
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: openebs-lvmpv-slow
+  labels:
+    {{- include "common.labels" . | nindent 4 }}
+  annotations:
+    storageclass.kubernetes.io/is-default-class: "false"
+allowVolumeExpansion: true
+volumeBindingMode: WaitForFirstConsumer
+provisioner: local.csi.openebs.io
+parameters:
+  storage: "lvm"
+  volgroup: "openebs-slow"
+  fsType: "ext4"
+  shared: "yes"
