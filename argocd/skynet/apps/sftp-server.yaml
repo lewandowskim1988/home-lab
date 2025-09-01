@@ -38,6 +38,7 @@ spec:
           enabled: true
           size: 10Gi
           subPath: none
+          storageClass: "openebs-lvmpv-slow"
         service:
           type: LoadBalancer
           port: 2222
