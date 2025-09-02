@@ -1,44 +1,44 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: sftp-server
-  namespace: argocd
-  finalizers:
-  - resources-finalizer.argocd.argoproj.io
-spec:
-  destination:
-    namespace: 'media'
-    server: 'https://kubernetes.default.svc'
-  project: apps
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-    - CreateNamespace=true
-    - ApplyOutOfSyncOnly=true
-    - PruneLast=true
-  source:
-    repoURL: https://sj14.github.io/helm-charts
-    chart: sftp-server
-    targetRevision: 0.8.0
-    helm:
-      values: |-
-        nameOverride: "sftp-server"
-        fullnameOverride: "sftp-server"
-        sftp:
-          users:
-            - name: michal
-              pass: ""
-              dirs:
-                - share
-              pubKeys:
-                - "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAABAEAgHCZ3BoLbZAycrLyhLG+iSZj4VQCIgWi8mrAvjlDSfv5UbC921mCvP36OVFiCTTnLPOm/WpX1IpOYFIq0E+cjhTNV/webbkp1o289S13dFklMRlRQAzkBzCE+AIXAoLmRA0uZSgDXgarq1bFvdIbxYUj8C3nV3wZ4n7XZAiAHKOO3ezu6VK/KxJqzID3oEsPH2JMaELI6U8iwjgx4bXI1V8iPk6yaYblkI9OcqFfIX+FyGehCGrDqjXS65nGZWRbW5FRsIfO+yD1S4/NLUS/NlC/CCm0b1UMTeBfqUYWARSrJ6T5keQ/ocPVcejgrDIENTGexEhbBYBD+YRkuxPNb6zXKNPpNhsJ29PQJLHP3rx8MDDZZ4xdZv+Vht6q9zTtYgnbIpaKfcY6TgvgVBJ5V0ZlP2GDAh3ccfDbxQ0I8Vyd2KDjFy0kecQF6QISPpWpv/Zncy/tzVBCwnsi9flr+YqBFLR/iIgzsULeDwP26rio1AlBcbhSuV3/YbxS1pD29P57YhyYeGE5nozJdMyYoTFXfOFTRyTohBWT9O486aym3RW7FmMm3hIQ8h8uBzt4bMWTmD074++8Xb5fmWoUdMbS05YJgEEwlCvVpCWuANCPlZh3Kai9ZaWqh+9njgKfwbSDCjsQ8HVfMElzATLy1wRxxsJ1rHWQf/r+YAXyRvfrx0y/dycEyQadOSM9Mbnr6+jqkGL+uetv/slYAYrQ5b1z3FcXlHr52x3zaPQ4R8K5FapCR5gKCC4A8YRTRlyBEbS22mO8B8ai0M3CedGsr8QZLUt4sPu2FVqCTaFEMQ/ptNt8oPKaGkYom5xb350+3HjZ5io2XaiiNPuf55Vt4f61/xNkr7UoeItCANgz6s2rulwBB4xQU8ugFvpNWsG82exWsRnNwucVu+UEVoQxyDcGxxMDSLxmJd5wqa0CScD4J39AnB/D0Ctg7Wm8xdyg2l2X8LJ6Mougj6/lntMq2a6GVzoTQHfw7D/Wvz95Y3r+VdEYviSC+WpP+aLyPpeTw35J8i80VF18Rgbz4FnUHNq4iyweeiRwgWj5bpQwP7KquUvBnV49z2DsmbmB8b1paisdk1fixGKvPsZ0QEmjQ6My6M0SEAWBUB5kPBg3AgFXWhfdRNApLod8J5JRxa0homW93FYr1ym2XcVTEP+ddluC/lCd/Hogbs9M2fR/31sdC9HUQdWkNKafC0Z3MRgbFhzPi9QbWXZVwBPWstigGJrXJ67roMhSTvEyJ8raHKRXvP8z1uTdjBVOm9AQ3Y36z1u1cDEBRsxavaKdbSolLMzUNmWt5S82WgalW0Di9eLnSKtqkoBaM1MKWZ0gi1qRRKwuMhQZ6H62cDfsaEh+zw=="
-        persistentVolume:
-          enabled: true
-          size: 20Gi
-          subPath: none
-          storageClass: "openebs-lvmpv-slow"
-        service:
-          type: LoadBalancer
-          port: 2222
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: sftp-server
+#   namespace: argocd
+#   finalizers:
+#   - resources-finalizer.argocd.argoproj.io
+# spec:
+#   destination:
+#     namespace: 'media'
+#     server: 'https://kubernetes.default.svc'
+#   project: apps
+#   syncPolicy:
+#     automated:
+#       prune: true
+#       selfHeal: true
+#     syncOptions:
+#     - CreateNamespace=true
+#     - ApplyOutOfSyncOnly=true
+#     - PruneLast=true
+#   source:
+#     repoURL: https://sj14.github.io/helm-charts
+#     chart: sftp-server
+#     targetRevision: 0.8.0
+#     helm:
+#       values: |-
+#         nameOverride: "sftp-server"
+#         fullnameOverride: "sftp-server"
+#         sftp:
+#           users:
+#             - name: michal
+#               pass: ""
+#               dirs:
+#                 - share
+#               pubKeys:
+#                 - "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAABAEAgHCZ3BoLbZAycrLyhLG+iSZj4VQCIgWi8mrAvjlDSfv5UbC921mCvP36OVFiCTTnLPOm/WpX1IpOYFIq0E+cjhTNV/webbkp1o289S13dFklMRlRQAzkBzCE+AIXAoLmRA0uZSgDXgarq1bFvdIbxYUj8C3nV3wZ4n7XZAiAHKOO3ezu6VK/KxJqzID3oEsPH2JMaELI6U8iwjgx4bXI1V8iPk6yaYblkI9OcqFfIX+FyGehCGrDqjXS65nGZWRbW5FRsIfO+yD1S4/NLUS/NlC/CCm0b1UMTeBfqUYWARSrJ6T5keQ/ocPVcejgrDIENTGexEhbBYBD+YRkuxPNb6zXKNPpNhsJ29PQJLHP3rx8MDDZZ4xdZv+Vht6q9zTtYgnbIpaKfcY6TgvgVBJ5V0ZlP2GDAh3ccfDbxQ0I8Vyd2KDjFy0kecQF6QISPpWpv/Zncy/tzVBCwnsi9flr+YqBFLR/iIgzsULeDwP26rio1AlBcbhSuV3/YbxS1pD29P57YhyYeGE5nozJdMyYoTFXfOFTRyTohBWT9O486aym3RW7FmMm3hIQ8h8uBzt4bMWTmD074++8Xb5fmWoUdMbS05YJgEEwlCvVpCWuANCPlZh3Kai9ZaWqh+9njgKfwbSDCjsQ8HVfMElzATLy1wRxxsJ1rHWQf/r+YAXyRvfrx0y/dycEyQadOSM9Mbnr6+jqkGL+uetv/slYAYrQ5b1z3FcXlHr52x3zaPQ4R8K5FapCR5gKCC4A8YRTRlyBEbS22mO8B8ai0M3CedGsr8QZLUt4sPu2FVqCTaFEMQ/ptNt8oPKaGkYom5xb350+3HjZ5io2XaiiNPuf55Vt4f61/xNkr7UoeItCANgz6s2rulwBB4xQU8ugFvpNWsG82exWsRnNwucVu+UEVoQxyDcGxxMDSLxmJd5wqa0CScD4J39AnB/D0Ctg7Wm8xdyg2l2X8LJ6Mougj6/lntMq2a6GVzoTQHfw7D/Wvz95Y3r+VdEYviSC+WpP+aLyPpeTw35J8i80VF18Rgbz4FnUHNq4iyweeiRwgWj5bpQwP7KquUvBnV49z2DsmbmB8b1paisdk1fixGKvPsZ0QEmjQ6My6M0SEAWBUB5kPBg3AgFXWhfdRNApLod8J5JRxa0homW93FYr1ym2XcVTEP+ddluC/lCd/Hogbs9M2fR/31sdC9HUQdWkNKafC0Z3MRgbFhzPi9QbWXZVwBPWstigGJrXJ67roMhSTvEyJ8raHKRXvP8z1uTdjBVOm9AQ3Y36z1u1cDEBRsxavaKdbSolLMzUNmWt5S82WgalW0Di9eLnSKtqkoBaM1MKWZ0gi1qRRKwuMhQZ6H62cDfsaEh+zw=="
+#         persistentVolume:
+#           enabled: true
+#           size: 20Gi
+#           subPath: none
+#           storageClass: "openebs-lvmpv-slow"
+#         service:
+#           type: LoadBalancer
+#           port: 2222
