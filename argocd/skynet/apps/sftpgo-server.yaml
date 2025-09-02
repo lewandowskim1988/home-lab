@@ -21,7 +21,6 @@ spec:
   source:
     repoURL: oci://ghcr.io/sftpgo/helm-charts
     chart: sftpgo
-    path: sftpgo
     targetRevision: 0.40.0
     helm:
       values: |-
