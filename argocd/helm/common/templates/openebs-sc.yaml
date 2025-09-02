@@ -14,3 +14,20 @@ parameters:
   volgroup: "openebs"
   fsType: "ext4"
   shared: "yes"
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: openebs-zfspv
+  labels:
+    {{- include "common.labels" . | nindent 4 }}
+  annotations:
+    storageclass.kubernetes.io/is-default-class: "false"
+parameters:
+  recordsize: "128k"
+  compression: "off"
+  dedup: "off"
+  fstype: "zfs"
+  poolname: "openebs-slow"
+  shared: "yes"
+provisioner: zfs.csi.openebs.io
