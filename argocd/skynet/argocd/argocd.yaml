@@ -159,8 +159,3 @@ spec:
               name: 8gearscharts
               type: helm
               enableOCI: "true"
-            sftpgo:
-              url: ghcr.io/sftpgo/helm-charts
-              name: sftpgo
-              type: helm
-              enableOCI: "true"
