@@ -28,8 +28,8 @@ spec:
         fullnameOverride: "sftp-server"
         sftp:
           hostKeys:
-            ed25519:
-              secretKeyRef: "sftp-keys"
+            # ed25519:
+            #   secretKeyRef: "sftp-keys"
             rsa:
               secretKeyRef: "sftp-keys"
           users:
