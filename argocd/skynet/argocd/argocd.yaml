@@ -154,13 +154,13 @@ spec:
           enabled: false
         configs:
           repositories:
-            bitnami-helm-repo:
-              url: registry-1.docker.io/bitnamicharts
-              name: bitnamicharts
-              type: helm
-              enableOCI: "true"
             8gears:
               url: 8gears.container-registry.com/library
               name: 8gearscharts
+              type: helm
+              enableOCI: "true"
+            sftpgo:
+              url: ghcr.io/sftpgo/helm-charts
+              name: sftpgo
               type: helm
               enableOCI: "true"
