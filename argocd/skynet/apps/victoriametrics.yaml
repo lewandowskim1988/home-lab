@@ -88,6 +88,11 @@ spec:
                 scheme: http
                 static_configs:
                   - targets: ['ingress-nginx-controller-metrics.ingress-nginx.svc.cluster.local:10254']
+              - job_name: 'openebs-lvm'
+                metrics_path: '/metrics'
+                scheme: http
+                static_configs:
+                  - targets: ['openebs-lvm-localpv-node-service.openebs.svc.cluster.local:9500']
         grafana:
           enabled: true
           resources:
