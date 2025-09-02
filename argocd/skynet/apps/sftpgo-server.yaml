@@ -19,7 +19,7 @@ spec:
     - ApplyOutOfSyncOnly=true
     - PruneLast=true
   source:
-    repoURL: oci://ghcr.io/sftpgo/helm-charts
+    repoURL: oci://ghcr.io/sftpgo/helm-charts/
     chart: sftpgo
     targetRevision: 0.40.0
     helm:
