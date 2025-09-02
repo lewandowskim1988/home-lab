@@ -28,8 +28,10 @@ spec:
         fullnameOverride: "sftp-server"
         sftp:
           hostKeys:
+            ed25519:
+              secretKeyRef: "sftp-keys"
             rsa:
-              secretKeyRef: "sftp-rsa-key"
+              secretKeyRef: "sftp-keys"
           users:
             - name: michal
               pass: ""
@@ -46,13 +48,20 @@ spec:
           type: LoadBalancer
           port: 2222
         extraManifests:
-        - apiVersion: secretgen.k14s.io/v1alpha1
-          kind: RSAKey
+        - apiVersion: external-secrets.io/v1
+          kind: ExternalSecret
           metadata:
-            name: sftp-rsa-key
+            name: sftp-keys
           spec:
-            secretTemplate:
-              type: Opaque
-              stringData:
-                ssh_host_rsa_key: $(privateKey)
+            refreshInterval: 12h
+            secretStoreRef:
+              name: aws-parameter-store
+              kind: ClusterSecretStore
+            target:
+              name: sftp-keys
+              creationPolicy: Owner
+            dataFrom:
+            - extract:
+                key: "/homelab/sftp-keys"
+
 
