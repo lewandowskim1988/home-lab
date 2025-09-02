@@ -31,7 +31,7 @@ spec:
             lvm:
               enabled: true
             zfs:
-              enabled: false
+              enabled: true
           replicated:
             mayastor:
               enabled: false
