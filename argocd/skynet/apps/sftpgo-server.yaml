@@ -38,7 +38,7 @@ spec:
               nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
               nginx.ingress.kubernetes.io/ssl-redirect: "true"
             hosts:
-              - host: n8n.lewandowskim.com
+              - host: sftp.lewandowskim.com
                 paths:
                   - path: "/"
                     pathType: ImplementationSpecific
