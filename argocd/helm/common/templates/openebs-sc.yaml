@@ -26,6 +26,11 @@ metadata:
 allowVolumeExpansion: true
 volumeBindingMode: WaitForFirstConsumer
 provisioner: zfs.csi.openebs.io
+allowedTopologies:
+- matchLabelExpressions:
+  - key: kubernetes.io/hostname
+    values:
+      - skynet
 parameters:
   recordsize: "128k"
   compression: "off"
