@@ -51,6 +51,13 @@ spec:
         service:
           type: LoadBalancer
           port: 2222
+        resources:
+          limits:
+            cpu: 1
+            memory: 1Gi
+          requests:
+            cpu: 800m
+            memory: 800Mi
         extraManifests:
         - apiVersion: external-secrets.io/v1
           kind: ExternalSecret
