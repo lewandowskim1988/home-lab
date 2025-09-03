@@ -26,6 +26,10 @@ spec:
       values: |-
         nameOverride: "sftp-server"
         fullnameOverride: "sftp-server"
+        image:
+          repository: atmoz/sftp
+          pullPolicy: IfNotPresent
+          tag: "debian"
         sftp:
           hostKeys:
             ed25519:
