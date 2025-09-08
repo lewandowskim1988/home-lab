@@ -34,15 +34,15 @@ spec:
           enabled: &metricsEnabled false
 
         dash:
-          username:
-          password:
+          username: admin
+          password: 6b207bd9c036d5b6e38ad577
           mail:
           countryCode: "PL"
           preferredLanguage: "en"
 
         torrent:
-          username:
-          password:
+          username: admin
+          password: f4daf0d13b59c66a3f077e2d
 
         volumes:
           storageClass: *storageClassName
