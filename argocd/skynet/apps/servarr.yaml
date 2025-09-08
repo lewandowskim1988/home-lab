@@ -1,220 +1,220 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: servarr
-  namespace: argocd
-  finalizers:
-  - resources-finalizer.argocd.argoproj.io
-spec:
-  destination:
-    namespace: 'media'
-    server: 'https://kubernetes.default.svc'
-  project: apps
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-    - CreateNamespace=true
-    - ApplyOutOfSyncOnly=true
-    - PruneLast=true
-  source:
-    path: 'argocd/helm/servarr'
-    repoURL: https://github.com/lewandowskim1988/home-lab.git
-    targetRevision: HEAD
-    helm:
-      values: |-
-        global:
-          apikey: &apikey "8432d3ac3895ebec84a90018"
-          storageClassName: &storageClassName "openebs-zfspv"
-          ingressClassName: &ingressClassName "nginx"
-          certManagerClusterIssuer: &issuer
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: servarr
+#   namespace: argocd
+#   finalizers:
+#   - resources-finalizer.argocd.argoproj.io
+# spec:
+#   destination:
+#     namespace: 'media'
+#     server: 'https://kubernetes.default.svc'
+#   project: apps
+#   syncPolicy:
+#     automated:
+#       prune: true
+#       selfHeal: true
+#     syncOptions:
+#     - CreateNamespace=true
+#     - ApplyOutOfSyncOnly=true
+#     - PruneLast=true
+#   source:
+#     path: 'argocd/helm/servarr'
+#     repoURL: https://github.com/lewandowskim1988/home-lab.git
+#     targetRevision: HEAD
+#     helm:
+#       values: |-
+#         global:
+#           apikey: &apikey "8432d3ac3895ebec84a90018"
+#           storageClassName: &storageClassName "openebs-zfspv"
+#           ingressClassName: &ingressClassName "nginx"
+#           certManagerClusterIssuer: &issuer
 
-        metrics:
-          enabled: &metricsEnabled false
+#         metrics:
+#           enabled: &metricsEnabled false
 
-        dash:
-          username: admin
-          password: 6b207bd9c036d5b6e38ad577
-          mail:
-          countryCode: "PL"
-          preferredLanguage: "en"
+#         dash:
+#           username: admin
+#           password: 6b207bd9c036d5b6e38ad577
+#           mail:
+#           countryCode: "PL"
+#           preferredLanguage: "en"
 
-        torrent:
-          username: admin
-          password: f4daf0d13b59c66a3f077e2d
+#         torrent:
+#           username: admin
+#           password: f4daf0d13b59c66a3f077e2d
 
-        volumes:
-          storageClass: *storageClassName
-          downloads:
-            name: &downloads-volume downloads-volume
-            size: 100Gi
-          media:
-            name: &media-volume media-volume
-            size: 250Gi
-          torrentConfig:
-            name: &torrentConfig torrent-config
-            size: 250Mi
+#         volumes:
+#           storageClass: *storageClassName
+#           downloads:
+#             name: &downloads-volume downloads-volume
+#             size: 100Gi
+#           media:
+#             name: &media-volume media-volume
+#             size: 250Gi
+#           torrentConfig:
+#             name: &torrentConfig torrent-config
+#             size: 250Mi
 
-        sonarr:
-          metrics:
-            main:
-              enabled: *metricsEnabled
-          workload:
-            main:
-              podSpec:
-                containers:
-                  main:
-                    env:
-                      SONARR__API_KEY: *apikey
-          ingress:
-            sonarr-ing:
-              ingressClassName: *ingressClassName
-              hosts:
-                - host: sonarr.lewandowskim.com
-                  paths:
-                    - path: /
-                      pathType: Prefix
-              tls:
-                - hosts:
-                    - sonarr.lewandowskim.com
-                  secretName: tls-wildcard-lewandowskim-com
-          persistence:
-            config:
-              storageClass: *storageClassName
-            media:
-              existingClaim: *media-volume
-            downloads:
-              existingClaim: *downloads-volume
+#         sonarr:
+#           metrics:
+#             main:
+#               enabled: *metricsEnabled
+#           workload:
+#             main:
+#               podSpec:
+#                 containers:
+#                   main:
+#                     env:
+#                       SONARR__API_KEY: *apikey
+#           ingress:
+#             sonarr-ing:
+#               ingressClassName: *ingressClassName
+#               hosts:
+#                 - host: sonarr.lewandowskim.com
+#                   paths:
+#                     - path: /
+#                       pathType: Prefix
+#               tls:
+#                 - hosts:
+#                     - sonarr.lewandowskim.com
+#                   secretName: tls-wildcard-lewandowskim-com
+#           persistence:
+#             config:
+#               storageClass: *storageClassName
+#             media:
+#               existingClaim: *media-volume
+#             downloads:
+#               existingClaim: *downloads-volume
 
-        radarr:
-          metrics:
-            main:
-              enabled: *metricsEnabled
-          workload:
-            main:
-              podSpec:
-                containers:
-                  main:
-                    env:
-                      RADARR__API_KEY: *apikey
-          ingress:
-            radarr-ing:
-              ingressClassName: *ingressClassName
-              hosts:
-                - host: radarr.lewandowskim.com
-                  paths:
-                    - path: /
-                      pathType: Prefix
-              tls:
-                - hosts:
-                    - radarr.lewandowskim.com
-                  secretName: tls-wildcard-lewandowskim-com
-          persistence:
-            config:
-              storageClass: *storageClassName
-            media:
-              existingClaim: *media-volume
-            downloads:
-              existingClaim: *downloads-volume
+#         radarr:
+#           metrics:
+#             main:
+#               enabled: *metricsEnabled
+#           workload:
+#             main:
+#               podSpec:
+#                 containers:
+#                   main:
+#                     env:
+#                       RADARR__API_KEY: *apikey
+#           ingress:
+#             radarr-ing:
+#               ingressClassName: *ingressClassName
+#               hosts:
+#                 - host: radarr.lewandowskim.com
+#                   paths:
+#                     - path: /
+#                       pathType: Prefix
+#               tls:
+#                 - hosts:
+#                     - radarr.lewandowskim.com
+#                   secretName: tls-wildcard-lewandowskim-com
+#           persistence:
+#             config:
+#               storageClass: *storageClassName
+#             media:
+#               existingClaim: *media-volume
+#             downloads:
+#               existingClaim: *downloads-volume
 
-        jellyfin:
-          metrics:
-            main:
-              enabled: *metricsEnabled
-          ingress:
-            jellyfin-ing:
-              ingressClassName: *ingressClassName
-              hosts:
-                - host: jellyfin.lewandowskim.com
-                  paths:
-                    - path: /
-                      pathType: Prefix
-              tls:
-                - hosts:
-                    - jellyfin.lewandowskim.com
-                  secretName: tls-wildcard-lewandowskim-com
-          persistence:
-            config:
-              storageClass: *storageClassName
-            media:
-              existingClaim: *media-volume
+#         jellyfin:
+#           metrics:
+#             main:
+#               enabled: *metricsEnabled
+#           ingress:
+#             jellyfin-ing:
+#               ingressClassName: *ingressClassName
+#               hosts:
+#                 - host: jellyfin.lewandowskim.com
+#                   paths:
+#                     - path: /
+#                       pathType: Prefix
+#               tls:
+#                 - hosts:
+#                     - jellyfin.lewandowskim.com
+#                   secretName: tls-wildcard-lewandowskim-com
+#           persistence:
+#             config:
+#               storageClass: *storageClassName
+#             media:
+#               existingClaim: *media-volume
 
-        jellyseerr:
-          metrics:
-            main:
-              enabled: *metricsEnabled
-          ingress:
-            jellyseerr-ing:
-              ingressClassName: *ingressClassName
-              hosts:
-                - host: jellyseerr.lewandowskim.com
-                  paths:
-                    - path: /
-                      pathType: Prefix
-              tls:
-                - hosts:
-                    - jellyseerr.lewandowskim.com
-                  secretName: tls-wildcard-lewandowskim-com
-          persistence:
-            config:
-              storageClass: *storageClassName
-            media:
-              existingClaim: *media-volume
+#         jellyseerr:
+#           metrics:
+#             main:
+#               enabled: *metricsEnabled
+#           ingress:
+#             jellyseerr-ing:
+#               ingressClassName: *ingressClassName
+#               hosts:
+#                 - host: jellyseerr.lewandowskim.com
+#                   paths:
+#                     - path: /
+#                       pathType: Prefix
+#               tls:
+#                 - hosts:
+#                     - jellyseerr.lewandowskim.com
+#                   secretName: tls-wildcard-lewandowskim-com
+#           persistence:
+#             config:
+#               storageClass: *storageClassName
+#             media:
+#               existingClaim: *media-volume
 
-        qbittorrent:
-          metrics:
-            main:
-              enabled: *metricsEnabled
-          ingress:
-            qbittorrent-ing:
-              ingressClassName: *ingressClassName
-              hosts:
-                - host: torrent.lewandowskim.com
-                  paths:
-                    - path: /
-                      pathType: Prefix
-              tls:
-                - hosts:
-                    - torrent.lewandowskim.com
-                  secretName: tls-wildcard-lewandowskim-com
-          persistence:
-            config:
-              existingClaim: *torrentConfig
-            downloads:
-              existingClaim: *downloads-volume
+#         qbittorrent:
+#           metrics:
+#             main:
+#               enabled: *metricsEnabled
+#           ingress:
+#             qbittorrent-ing:
+#               ingressClassName: *ingressClassName
+#               hosts:
+#                 - host: torrent.lewandowskim.com
+#                   paths:
+#                     - path: /
+#                       pathType: Prefix
+#               tls:
+#                 - hosts:
+#                     - torrent.lewandowskim.com
+#                   secretName: tls-wildcard-lewandowskim-com
+#           persistence:
+#             config:
+#               existingClaim: *torrentConfig
+#             downloads:
+#               existingClaim: *downloads-volume
 
-        prowlarr:
-          metrics:
-            main:
-              enabled: *metricsEnabled
-          workload:
-            main:
-              podSpec:
-                containers:
-                  main:
-                    env:
-                      PROWLARR__API_KEY: *apikey
-          ingress:
-            prowlarr-ing:
-              ingressClassName: *ingressClassName
-              hosts:
-                - host: prowlarr.lewandowskim.com
-                  paths:
-                    - path: /
-                      pathType: Prefix
-              tls:
-                - hosts:
-                    - prowlarr.lewandowskim.com
-                  secretName: tls-wildcard-lewandowskim-com
-          persistence:
-            config:
-              storageClass: *storageClassName
+#         prowlarr:
+#           metrics:
+#             main:
+#               enabled: *metricsEnabled
+#           workload:
+#             main:
+#               podSpec:
+#                 containers:
+#                   main:
+#                     env:
+#                       PROWLARR__API_KEY: *apikey
+#           ingress:
+#             prowlarr-ing:
+#               ingressClassName: *ingressClassName
+#               hosts:
+#                 - host: prowlarr.lewandowskim.com
+#                   paths:
+#                     - path: /
+#                       pathType: Prefix
+#               tls:
+#                 - hosts:
+#                     - prowlarr.lewandowskim.com
+#                   secretName: tls-wildcard-lewandowskim-com
+#           persistence:
+#             config:
+#               storageClass: *storageClassName
 
-        flaresolverr:
-          metrics:
-            main:
-              enabled: *metricsEnabled
-          persistence:
-            config:
-              storageClass: *storageClassName
+#         flaresolverr:
+#           metrics:
+#             main:
+#               enabled: *metricsEnabled
+#           persistence:
+#             config:
+#               storageClass: *storageClassName
