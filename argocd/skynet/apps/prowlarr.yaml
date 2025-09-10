@@ -1,0 +1,64 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: prowlarr
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: 'media'
+    server: 'https://kubernetes.default.svc'
+  project: apps
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
+    - ApplyOutOfSyncOnly=true
+    - PruneLast=true
+  source:
+    path: 'argocd/helm/prowlarr'
+    repoURL: https://github.com/lewandowskim1988/home-lab.git
+    targetRevision: HEAD
+    helm:
+      values: |-
+        nameOverride: "prowlarr"
+        fullnameOverride: "prowlarr"
+        ingress:
+          enabled: true
+          className: "nginx"
+          annotations:
+            nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+            nginx.ingress.kubernetes.io/ssl-redirect: "true"
+          hosts:
+            - host: prowlarr.lewandowskim.com
+              paths:
+                - path: /
+                  pathType: ImplementationSpecific
+          tls:
+            - hosts:
+                - prowlarr.lewandowskim.com
+              secretName: tls-wildcard-lewandowskim-com
+        envFrom:
+          - secretRef:
+              name: prowlarr-api-key
+        exportarr:
+          enabled: true
+          image:
+            repository: "ghcr.io/onedr0p/exportarr"
+            tag: "v2.3.0"
+          envFrom:
+            - secretRef:
+                name: prowlarr-api-key
+        extraObjects:
+          - apiVersion: secretgen.k14s.io/v1alpha1
+            kind: Password
+            metadata:
+              name: prowlarr-api-key
+            spec:
+              secretTemplate:
+                type: Opaque
+                stringData:
+                  APIKEY: $(value)
