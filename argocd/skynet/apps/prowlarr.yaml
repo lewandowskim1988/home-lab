@@ -58,6 +58,7 @@ spec:
             metadata:
               name: prowlarr-api-key
             spec:
+              length: 30
               secretTemplate:
                 type: Opaque
                 stringData:
