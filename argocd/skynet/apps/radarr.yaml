@@ -44,6 +44,9 @@ spec:
         envFrom:
           - secretRef:
               name: radarr-api-key
+        mediaVolume:
+          enabled: true
+          name: "qbittorrent-media"
         exportarr:
           enabled: true
           image:

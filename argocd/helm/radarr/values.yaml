@@ -87,11 +87,15 @@ readinessProbe:
     port: http
 
 # Additional volumes on the output Deployment definition.
-volumes:
+configVolume:
   enabled: true
   accessModes: "ReadWriteOnce"
   size: 100M
   storageClassName: ""
+
+mediaVolume:
+  enabled: false
+  name: ""
 
 nodeSelector: {}
 
