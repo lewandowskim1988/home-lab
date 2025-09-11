@@ -62,4 +62,4 @@ spec:
               secretTemplate:
                 type: Opaque
                 stringData:
-                  APIKEY: $(value)
+                  RADARR__AUTH__APIKEY: $(value)
