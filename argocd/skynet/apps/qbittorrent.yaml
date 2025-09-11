@@ -44,7 +44,7 @@ spec:
         mediaVolume:
           enabled: true
           accessModes: "ReadWriteOnce"
-          size: 100G
+          size: 500G
           storageClassName: "openebs-zfspv"
         env:
           - name: PUID
