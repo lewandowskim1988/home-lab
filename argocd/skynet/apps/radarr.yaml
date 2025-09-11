@@ -63,3 +63,4 @@ spec:
                 type: Opaque
                 stringData:
                   RADARR__AUTH__APIKEY: $(value)
+                  APIKEY: $(value)
