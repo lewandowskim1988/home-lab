@@ -70,7 +70,7 @@ spec:
             {{- end }}
             {{- if .Values.mediaVolume.enabled }}
             - name: media
-              mountPath: /media
+              mountPath: /mnt/media
             {{- end }}
         {{- if .Values.exportarr.enabled }}
         - name: exportarr
