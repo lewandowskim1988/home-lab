@@ -1,0 +1,17 @@
+{{- if .Values.volumes.enabled }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "radarr.fullname" . }}
+  labels:
+    {{- include "radarr.labels" . | nindent 4 }}
+spec:
+  accessModes:
+    - {{ .Values.volumes.accessModes }}
+  resources:
+    requests:
+      storage: {{ .Values.volumes.size | quote }}
+  {{- if .Values.volumes.storageClassName }}
+  storageClassName: {{ .Values.volumes.storageClassName }}
+  {{- end }}
+{{- end }}

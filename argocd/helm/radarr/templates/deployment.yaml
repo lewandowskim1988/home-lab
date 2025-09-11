@@ -1,14 +1,14 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "prowlarr.fullname" . }}
+  name: {{ include "radarr.fullname" . }}
   labels:
-    {{- include "prowlarr.labels" . | nindent 4 }}
+    {{- include "radarr.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      {{- include "prowlarr.selectorLabels" . | nindent 6 }}
+      {{- include "radarr.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -16,7 +16,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "prowlarr.labels" . | nindent 8 }}
+        {{- include "radarr.labels" . | nindent 8 }}
         {{- with .Values.podLabels }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
@@ -70,7 +70,7 @@ spec:
         - name: exportarr
           image: "{{ .Values.exportarr.image.repository }}:{{ .Values.exportarr.image.tag }}"
           args:
-            - prowlarr
+            - radarr
           ports:
             - name: metrics
               containerPort: 9707
@@ -104,7 +104,7 @@ spec:
       volumes:
         - name: config
           persistentVolumeClaim:
-            claimName: {{ include "prowlarr.fullname" . }}
+            claimName: {{ include "radarr.fullname" . }}
       {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
