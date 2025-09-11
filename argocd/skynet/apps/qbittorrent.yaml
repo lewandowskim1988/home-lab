@@ -41,9 +41,11 @@ spec:
             - hosts:
                 - qbittorrent.lewandowskim.com
               secretName: tls-wildcard-lewandowskim-com
-        envFrom:
-          - secretRef:
-              name: qbittorrent-api-key
+        mediaVolume:
+          enabled: true
+          accessModes: "ReadWriteOnce"
+          size: 100G
+          storageClassName: "openebs-zfspv"
         exportarr:
           enabled: true
           image:
