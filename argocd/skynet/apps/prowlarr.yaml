@@ -62,4 +62,5 @@ spec:
               secretTemplate:
                 type: Opaque
                 stringData:
+                  PROWLARR__AUTH__APIKEY: $(value)
                   APIKEY: $(value)
