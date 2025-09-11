@@ -44,6 +44,13 @@ spec:
         envFrom:
           - secretRef:
               name: prowlarr-api-key
+        env:
+          - name: PUID
+            value: 1000
+          - name: PGID
+            value: 1000
+          - name: TZ
+            value: Europe/Warsaw
         exportarr:
           enabled: true
           image:

@@ -46,6 +46,17 @@ spec:
           accessModes: "ReadWriteOnce"
           size: 100G
           storageClassName: "openebs-zfspv"
+        env:
+          - name: PUID
+            value: 1000
+          - name: PGID
+            value: 1000
+          - name: TZ
+            value: Europe/Warsaw
+          - name: WEBUI_PORT
+            value: 8080
+          - name: UMASK
+            value: 022
         exportarr:
           enabled: false
           image:
