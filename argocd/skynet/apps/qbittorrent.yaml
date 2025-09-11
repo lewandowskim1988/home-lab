@@ -47,7 +47,7 @@ spec:
           size: 100G
           storageClassName: "openebs-zfspv"
         exportarr:
-          enabled: true
+          enabled: false
           image:
             repository: "ghcr.io/onedr0p/exportarr"
             tag: "v2.3.0"
