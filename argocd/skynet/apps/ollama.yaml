@@ -34,18 +34,18 @@ spec:
             pull:
               - devstral:24b
               - mistral-small3.2:24b
-              - bge-m3:567m
+              - embeddinggemma:300m
               - llama3.2:3b
-              - qwen2.5vl:7b-q8_0
+              - qwen3-coder:30b
             run: []
             create:
-              - name: bge-m3-ctx32768
+              - name: embeddinggemma-32768
                 template: |
-                  FROM bge-m3:567m
+                  FROM embeddinggemma:300m
                   PARAMETER num_ctx 32768
         resources:
           requests:
-            memory: 3Gi
+            memory: 4Gi
             cpu: 2
         persistentVolume:
           enabled: true
