@@ -26,6 +26,8 @@ spec:
       values: |-
         nameOverride: ollama
         fullnameOverride: ollama
+        image:
+          tag: "0.11.11-rocm"
         ollama:
           gpu:
             enabled: true
