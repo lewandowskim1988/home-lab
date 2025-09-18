@@ -40,7 +40,7 @@ spec:
               - llama3.2:3b
               - qwen3-coder:30b
               - qwen3:30b
-              - ryanshillington/Qwen3-Embedding-8B:latest
+              - dengcao/Qwen3-Embedding-8B:F16
             run: []
             create:
               - name: embeddinggemma-32768
@@ -49,7 +49,7 @@ spec:
                   PARAMETER num_ctx 32768
               - name: Qwen3-Embedding-8B
                 template: |
-                  FROM ryanshillington/Qwen3-Embedding-8B:latest
+                  FROM dengcao/Qwen3-Embedding-8B:F16
         resources:
           requests:
             memory: 4Gi
