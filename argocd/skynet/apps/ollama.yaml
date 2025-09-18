@@ -35,15 +35,16 @@ spec:
           models:
             pull:
               - mistral-small3.2:24b
+              - embeddinggemma:300m
               - llama3.2:3b
               - qwen3-coder:30b
               - qwen3:30b
-              - dengcao/Qwen3-Embedding-4B:Q4_K_M
             run: []
             create:
-              - name: Qwen3-Embedding-4B
+              - name: embeddinggemma-32768
                 template: |
-                  FROM dengcao/Qwen3-Embedding-4B:Q4_K_M
+                  FROM embeddinggemma:300m
+                  PARAMETER num_ctx 32768
         resources:
           requests:
             memory: 4Gi
