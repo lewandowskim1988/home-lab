@@ -47,10 +47,9 @@ spec:
                 template: |
                   FROM embeddinggemma:300m
                   PARAMETER num_ctx 32768
-              - name: qwen-embedding-32768
+              - name: Qwen3-Embedding-8B
                 template: |
                   FROM ryanshillington/Qwen3-Embedding-8B:latest
-                  PARAMETER num_ctx 32768
         resources:
           requests:
             memory: 4Gi
