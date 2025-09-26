@@ -21,13 +21,13 @@ spec:
   source:
     repoURL: https://otwld.github.io/ollama-helm/
     chart: ollama
-    targetRevision: 1.28.0
+    targetRevision: 1.30.0
     helm:
       values: |-
         nameOverride: ollama
         fullnameOverride: ollama
         image:
-          tag: "0.11.11-rocm"
+          tag: "0.12.3-rocm"
         ollama:
           gpu:
             enabled: true
@@ -39,6 +39,7 @@ spec:
               - llama3.2:3b
               - qwen3-coder:30b
               - qwen3:30b
+              - qwen3-embedding:8b
             run: []
             create:
               - name: embeddinggemma-32768
