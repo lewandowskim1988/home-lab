@@ -1,45 +1,45 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: vault
-  namespace: argocd
-  finalizers:
-  - resources-finalizer.argocd.argoproj.io
-spec:
-  destination:
-    namespace: 'vault'
-    server: 'https://kubernetes.default.svc'
-  project: apps
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-    - CreateNamespace=true
-    - ApplyOutOfSyncOnly=true
-    - PruneLast=true
-  source:
-    repoURL: https://helm.releases.hashicorp.com
-    chart: vault
-    targetRevision: v0.31.0
-    helm:
-      values: |-
-        nameOverride: vault
-        fullnameOverride: vault
-        injector:
-          enabled: false
-        server:
-          ingress:
-            enabled: true
-            annotations:
-              nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-              nginx.ingress.kubernetes.io/ssl-redirect: "true"
-            ingressClassName: "nginx"
-            hosts:
-              - host: vault.lewandowskim.com
-            tls:
-              - secretName: tls-wildcard-lewandowskim-com
-                hosts:
-                  - vault.lewandowskim.com
-        ui:
-          enabled: true
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: vault
+#   namespace: argocd
+#   finalizers:
+#   - resources-finalizer.argocd.argoproj.io
+# spec:
+#   destination:
+#     namespace: 'vault'
+#     server: 'https://kubernetes.default.svc'
+#   project: apps
+#   syncPolicy:
+#     automated:
+#       prune: true
+#       selfHeal: true
+#     syncOptions:
+#     - CreateNamespace=true
+#     - ApplyOutOfSyncOnly=true
+#     - PruneLast=true
+#   source:
+#     repoURL: https://helm.releases.hashicorp.com
+#     chart: vault
+#     targetRevision: v0.31.0
+#     helm:
+#       values: |-
+#         nameOverride: vault
+#         fullnameOverride: vault
+#         injector:
+#           enabled: false
+#         server:
+#           ingress:
+#             enabled: true
+#             annotations:
+#               nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+#               nginx.ingress.kubernetes.io/ssl-redirect: "true"
+#             ingressClassName: "nginx"
+#             hosts:
+#               - host: vault.lewandowskim.com
+#             tls:
+#               - secretName: tls-wildcard-lewandowskim-com
+#                 hosts:
+#                   - vault.lewandowskim.com
+#         ui:
+#           enabled: true
