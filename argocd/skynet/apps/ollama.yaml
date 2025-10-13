@@ -27,7 +27,7 @@ spec:
         nameOverride: ollama
         fullnameOverride: ollama
         image:
-          tag: "0.12.3-rocm"
+          tag: "0.12.5-rocm"
         ollama:
           gpu:
             enabled: true
@@ -35,17 +35,16 @@ spec:
           models:
             pull:
               - mistral-small3.2:24b
-              - embeddinggemma:300m
               - llama3.2:3b
               - qwen3-coder:30b
               - qwen3:30b
-              - qwen3-embedding:8b
+              - qwen3-embedding:8b-fp16
             run: []
-            create:
-              - name: embeddinggemma-32768
-                template: |
-                  FROM embeddinggemma:300m
-                  PARAMETER num_ctx 32768
+            create: []
+              # - name: embeddinggemma-32768
+              #   template: |
+              #     FROM embeddinggemma:300m
+              #     PARAMETER num_ctx 32768
         resources:
           requests:
             memory: 4Gi
