@@ -27,6 +27,8 @@ spec:
       values: |-
         nameOverride: n8n
         fullnameOverride: n8n
+        image:
+          tag: "1.116.0"
         ingress:
           enabled: true
           annotations:
