@@ -26,3 +26,11 @@ spec:
       values: |-
         nameOverride: nvidia-device-plugin
         fullnameOverride: nvidia-device-plugin
+        resources:
+          limits:
+            cpu: 50m
+            memory: 128Mi
+          requests:
+            cpu: 10m
+            memory: 64Mi
+        affinity: {}
