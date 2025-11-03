@@ -24,7 +24,7 @@ spec:
     server: https://kubernetes.default.svc
   - namespace: ingress-nginx
     server: https://kubernetes.default.svc
-  - namespace: gpu-operator
+  - namespace: nvidia-device-plugin
     server: https://kubernetes.default.svc
   - namespace: ollama
     server: https://kubernetes.default.svc
