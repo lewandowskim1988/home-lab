@@ -1,132 +1,132 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: victoriametrics
-  namespace: argocd
-  finalizers:
-  - resources-finalizer.argocd.argoproj.io
-spec:
-  destination:
-    namespace: 'monitoring'
-    server: 'https://kubernetes.default.svc'
-  project: apps
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-    - CreateNamespace=true
-    - ApplyOutOfSyncOnly=true
-    - PruneLast=true
-    - ServerSideApply=true
-    - RespectIgnoreDifferences=true
-  ignoreDifferences:
-    - group: ""
-      kind: Secret
-      name: victoriametrics-victoria-metrics-operator-validation
-      namespace: monitoring
-      jsonPointers:
-        - /data
-    - group: admissionregistration.k8s.io
-      kind: ValidatingWebhookConfiguration
-      name: victoriametrics-victoria-metrics-operator-admission
-      jqPathExpressions:
-      - '.webhooks[]?.clientConfig.caBundle'
-  source:
-    repoURL: https://victoriametrics.github.io/helm-charts/
-    chart: victoria-metrics-k8s-stack
-    targetRevision: 0.60.1
-    helm:
-      values: |-
-        nameOverride: "vm"
-        fullnameOverride: "vm"
-        argocdReleaseOverride: "victoriametrics"
-        vmsingle:
-          enabled: true
-          spec:
-            retentionPeriod: "60d"
-            extraArgs:
-              maxLabelsPerTimeseries: "130"
-            storage:
-              accessModes:
-                - ReadWriteOnce
-              storageClassName: "openebs-lvmpv"
-              resources:
-                requests:
-                  storage: 20Gi
-            resources:
-              limits:
-                cpu: 250m
-                memory: 1.3Gi
-              requests:
-                cpu: 200m
-                memory: 1Gi
-        alertmanager:
-          enabled: false
-        vmalert:
-          enabled: false
-        vmagent:
-          spec:
-            resources:
-              limits:
-                cpu: 50m
-                memory: 150Mi
-              requests:
-                cpu: 40m
-                memory: 120Mi
-            scrapeInterval: 10s
-            externalLabels:
-              cluster: skynet
-            inlineScrapeConfig: |
-              - job_name: 'gpu'
-                metrics_path: '/metrics'
-                scheme: http
-                static_configs:
-                  - targets: ['gpu-operator-metrics-exporter.gpu-operator.svc.cluster.local:5000']
-              - job_name: 'ingress-nginx-endpoints'
-                metrics_path: '/metrics'
-                scheme: http
-                static_configs:
-                  - targets: ['ingress-nginx-controller-metrics.ingress-nginx.svc.cluster.local:10254']
-              - job_name: 'openebs-lvm'
-                metrics_path: '/metrics'
-                scheme: http
-                static_configs:
-                  - targets: ['openebs-lvm-localpv-node-service.openebs.svc.cluster.local:9500']
-        grafana:
-          enabled: true
-          resources:
-            requests:
-              cpu: 200m
-              memory: 250Mi
-            limits:
-              cpu: 250m
-              memory: 300Mi
-          ingress:
-            enabled: true
-            annotations:
-              kubernetes.io/ingress.class: nginx
-            pathType: Prefix
-            hosts:
-              - monitoring.lewandowskim.com
-            tls:
-            - hosts:
-              - monitoring.lewandowskim.com
-              secretName: tls-wildcard-lewandowskim-com
-          defaultDashboardsTimezone: cet
-          admin:
-            existingSecret: "grafana-admin-credentials"
-            userKey: username
-            passwordKey: password
-        extraObjects:
-          - apiVersion: secretgen.k14s.io/v1alpha1
-            kind: Password
-            metadata:
-              name: grafana-admin-credentials
-            spec:
-              length: 25
-              secretTemplate:
-                type: Opaque
-                stringData:
-                  username: admin
-                  password: $(value)
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: victoriametrics
+#   namespace: argocd
+#   finalizers:
+#   - resources-finalizer.argocd.argoproj.io
+# spec:
+#   destination:
+#     namespace: 'monitoring'
+#     server: 'https://kubernetes.default.svc'
+#   project: apps
+#   syncPolicy:
+#     automated:
+#       prune: true
+#       selfHeal: true
+#     syncOptions:
+#     - CreateNamespace=true
+#     - ApplyOutOfSyncOnly=true
+#     - PruneLast=true
+#     - ServerSideApply=true
+#     - RespectIgnoreDifferences=true
+#   ignoreDifferences:
+#     - group: ""
+#       kind: Secret
+#       name: victoriametrics-victoria-metrics-operator-validation
+#       namespace: monitoring
+#       jsonPointers:
+#         - /data
+#     - group: admissionregistration.k8s.io
+#       kind: ValidatingWebhookConfiguration
+#       name: victoriametrics-victoria-metrics-operator-admission
+#       jqPathExpressions:
+#       - '.webhooks[]?.clientConfig.caBundle'
+#   source:
+#     repoURL: https://victoriametrics.github.io/helm-charts/
+#     chart: victoria-metrics-k8s-stack
+#     targetRevision: 0.60.1
+#     helm:
+#       values: |-
+#         nameOverride: "vm"
+#         fullnameOverride: "vm"
+#         argocdReleaseOverride: "victoriametrics"
+#         vmsingle:
+#           enabled: true
+#           spec:
+#             retentionPeriod: "60d"
+#             extraArgs:
+#               maxLabelsPerTimeseries: "130"
+#             storage:
+#               accessModes:
+#                 - ReadWriteOnce
+#               storageClassName: "openebs-lvmpv"
+#               resources:
+#                 requests:
+#                   storage: 20Gi
+#             resources:
+#               limits:
+#                 cpu: 250m
+#                 memory: 1.3Gi
+#               requests:
+#                 cpu: 200m
+#                 memory: 1Gi
+#         alertmanager:
+#           enabled: false
+#         vmalert:
+#           enabled: false
+#         vmagent:
+#           spec:
+#             resources:
+#               limits:
+#                 cpu: 50m
+#                 memory: 150Mi
+#               requests:
+#                 cpu: 40m
+#                 memory: 120Mi
+#             scrapeInterval: 10s
+#             externalLabels:
+#               cluster: skynet
+#             inlineScrapeConfig: |
+#               - job_name: 'gpu'
+#                 metrics_path: '/metrics'
+#                 scheme: http
+#                 static_configs:
+#                   - targets: ['gpu-operator-metrics-exporter.gpu-operator.svc.cluster.local:5000']
+#               - job_name: 'ingress-nginx-endpoints'
+#                 metrics_path: '/metrics'
+#                 scheme: http
+#                 static_configs:
+#                   - targets: ['ingress-nginx-controller-metrics.ingress-nginx.svc.cluster.local:10254']
+#               - job_name: 'openebs-lvm'
+#                 metrics_path: '/metrics'
+#                 scheme: http
+#                 static_configs:
+#                   - targets: ['openebs-lvm-localpv-node-service.openebs.svc.cluster.local:9500']
+#         grafana:
+#           enabled: true
+#           resources:
+#             requests:
+#               cpu: 200m
+#               memory: 250Mi
+#             limits:
+#               cpu: 250m
+#               memory: 300Mi
+#           ingress:
+#             enabled: true
+#             annotations:
+#               kubernetes.io/ingress.class: nginx
+#             pathType: Prefix
+#             hosts:
+#               - monitoring.lewandowskim.com
+#             tls:
+#             - hosts:
+#               - monitoring.lewandowskim.com
+#               secretName: tls-wildcard-lewandowskim-com
+#           defaultDashboardsTimezone: cet
+#           admin:
+#             existingSecret: "grafana-admin-credentials"
+#             userKey: username
+#             passwordKey: password
+#         extraObjects:
+#           - apiVersion: secretgen.k14s.io/v1alpha1
+#             kind: Password
+#             metadata:
+#               name: grafana-admin-credentials
+#             spec:
+#               length: 25
+#               secretTemplate:
+#                 type: Opaque
+#                 stringData:
+#                   username: admin
+#                   password: $(value)

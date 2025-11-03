@@ -1,62 +1,62 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: filebrowser
-  namespace: argocd
-  finalizers:
-  - resources-finalizer.argocd.argoproj.io
-spec:
-  destination:
-    namespace: 'n8n'
-    server: 'https://kubernetes.default.svc'
-  project: apps
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-    - CreateNamespace=true
-    - ApplyOutOfSyncOnly=true
-    - PruneLast=true
-  source:
-    path: 'argocd/helm/filebrowser'
-    repoURL: https://github.com/lewandowskim1988/home-lab.git
-    targetRevision: HEAD
-    helm:
-      values: |-
-        nameOverride: "filebrowser"
-        fullnameOverride: "filebrowser"
-        ingress:
-          enabled: true
-          className: "nginx"
-          annotations:
-            nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-            nginx.ingress.kubernetes.io/ssl-redirect: "true"
-            nginx.ingress.kubernetes.io/proxy-body-size: "64m"
-          hosts:
-            - host: filebrowser.lewandowskim.com
-              paths:
-                - path: /
-                  pathType: ImplementationSpecific
-          tls:
-            - hosts:
-                - filebrowser.lewandowskim.com
-              secretName: tls-wildcard-lewandowskim-com
-        resources:
-          limits:
-            cpu: 150m
-            memory: 200Mi
-          requests:
-            cpu: 100m
-            memory: 128Mi
-        rootDir:
-          hostPath:
-            path: /filebrowser
-          pvc:
-            storageClassName: "openebs-lvmpv"
-            size: 10Gi
-        db:
-          pvc:
-            enabled: true
-            storageClassName: "openebs-lvmpv"
-            size: 256Mi
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: filebrowser
+#   namespace: argocd
+#   finalizers:
+#   - resources-finalizer.argocd.argoproj.io
+# spec:
+#   destination:
+#     namespace: 'n8n'
+#     server: 'https://kubernetes.default.svc'
+#   project: apps
+#   syncPolicy:
+#     automated:
+#       prune: true
+#       selfHeal: true
+#     syncOptions:
+#     - CreateNamespace=true
+#     - ApplyOutOfSyncOnly=true
+#     - PruneLast=true
+#   source:
+#     path: 'argocd/helm/filebrowser'
+#     repoURL: https://github.com/lewandowskim1988/home-lab.git
+#     targetRevision: HEAD
+#     helm:
+#       values: |-
+#         nameOverride: "filebrowser"
+#         fullnameOverride: "filebrowser"
+#         ingress:
+#           enabled: true
+#           className: "nginx"
+#           annotations:
+#             nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+#             nginx.ingress.kubernetes.io/ssl-redirect: "true"
+#             nginx.ingress.kubernetes.io/proxy-body-size: "64m"
+#           hosts:
+#             - host: filebrowser.lewandowskim.com
+#               paths:
+#                 - path: /
+#                   pathType: ImplementationSpecific
+#           tls:
+#             - hosts:
+#                 - filebrowser.lewandowskim.com
+#               secretName: tls-wildcard-lewandowskim-com
+#         resources:
+#           limits:
+#             cpu: 150m
+#             memory: 200Mi
+#           requests:
+#             cpu: 100m
+#             memory: 128Mi
+#         rootDir:
+#           hostPath:
+#             path: /filebrowser
+#           pvc:
+#             storageClassName: "openebs-lvmpv"
+#             size: 10Gi
+#         db:
+#           pvc:
+#             enabled: true
+#             storageClassName: "openebs-lvmpv"
+#             size: 256Mi
