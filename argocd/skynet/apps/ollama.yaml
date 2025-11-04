@@ -21,13 +21,13 @@
 #   source:
 #     repoURL: https://otwld.github.io/ollama-helm/
 #     chart: ollama
-#     targetRevision: 1.32.0
+#     targetRevision: 1.33.0
 #     helm:
 #       values: |-
 #         nameOverride: ollama
 #         fullnameOverride: ollama
 #         image:
-#           tag: "0.12.6-rocm"
+#           tag: "0.12.9"
 #         ollama:
 #           gpu:
 #             enabled: true
@@ -58,6 +58,7 @@
 #             value: "1"
 #           - name: OLLAMA_CONTEXT_LENGTH
 #             value: "16384"
+          # runtimeClassName: nvidia
 #         ingress:
 #           enabled: true
 #           className: "nginx"
