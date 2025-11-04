@@ -39,3 +39,6 @@ spec:
           enabled: false
         alloy:
           enabled: false
+        zfs-localpv:
+          zfsNode:
+            encrKeysDir: "/var/openebs/keys"
