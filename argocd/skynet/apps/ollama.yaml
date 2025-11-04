@@ -51,7 +51,7 @@ spec:
         extraEnv:
           - name: OLLAMA_CONTEXT_LENGTH
             value: "16384"
-          runtimeClassName: nvidia
+        runtimeClassName: nvidia
         ingress:
           enabled: true
           className: "nginx"
