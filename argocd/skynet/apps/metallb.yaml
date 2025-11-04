@@ -35,8 +35,6 @@ spec:
               cpu: 120m
               memory: 350Mi
         speaker:
-          labels:
-            pod-security.kubernetes.io/enforce: privileged
           resources:
             requests:
               cpu: 100m
