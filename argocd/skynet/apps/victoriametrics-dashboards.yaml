@@ -1,25 +1,25 @@
-# apiVersion: argoproj.io/v1alpha1
-# kind: Application
-# metadata:
-#   name: victoriametrics-dashboards
-#   namespace: argocd
-#   finalizers:
-#   - resources-finalizer.argocd.argoproj.io
-# spec:
-#   destination:
-#     namespace: 'monitoring'
-#     server: 'https://kubernetes.default.svc'
-#   project: apps
-#   syncPolicy:
-#     automated:
-#       prune: true
-#       selfHeal: true
-#     syncOptions:
-#     - CreateNamespace=true
-#     - ApplyOutOfSyncOnly=true
-#     - PruneLast=true
-#     - ServerSideApply=true
-#   source:
-#     path: 'argocd/helm/victoriametrics-dashboards'
-#     repoURL: https://github.com/lewandowskim1988/home-lab.git
-#     targetRevision: HEAD
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: victoriametrics-dashboards
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: 'monitoring'
+    server: 'https://kubernetes.default.svc'
+  project: apps
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
+    - ApplyOutOfSyncOnly=true
+    - PruneLast=true
+    - ServerSideApply=true
+  source:
+    path: 'argocd/helm/victoriametrics-dashboards'
+    repoURL: https://github.com/lewandowskim1988/home-lab.git
+    targetRevision: HEAD
