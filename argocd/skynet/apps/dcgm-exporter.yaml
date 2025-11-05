@@ -1,0 +1,36 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dcgm-exporter
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: 'nvidia-device-plugin'
+    server: 'https://kubernetes.default.svc'
+  project: apps
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
+    - ApplyOutOfSyncOnly=true
+    - PruneLast=true
+  source:
+    path: 'argocd/helm/dcgm-exporter'
+    repoURL: https://github.com/lewandowskim1988/home-lab.git
+    targetRevision: HEAD
+    helm:
+      values: |-
+        nameOverride: dcgm-exporter
+        fullnameOverride: dcgm-exporter
+        runtimeClassName: nvidia
+        resources:
+          limits:
+            cpu: 50m
+            memory: 128Mi
+          requests:
+            cpu: 10m
+            memory: 64Mi
