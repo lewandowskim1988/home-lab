@@ -44,7 +44,6 @@ spec:
         persistence:
           enabled: true
           size: 5Gi
-          storageClass: "openebs-lvmpv"
         extraEnvVars:
           - name: ENV
             value: dev
