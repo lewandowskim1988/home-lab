@@ -36,6 +36,7 @@ spec:
             pull:
               - llama3.2:3b
               - llama3.2:1b
+              - qwen3:0.6b
             run: []
             create: []
               # - name: embeddinggemma-32768
