@@ -1,0 +1,36 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: victoriametrics-operator
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  labels:
+    app: victoria-metrics
+  annotations:
+    argocd.argoproj.io/compare-options: ServerSideDiff=false
+spec:
+  destination:
+    namespace: 'monitoring'
+    server: 'https://kubernetes.default.svc'
+  project: apps
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
+    - ApplyOutOfSyncOnly=true
+    - PruneLast=true
+    - ServerSideApply=true
+  source:
+    repoURL: https://victoriametrics.github.io/helm-charts
+    chart: victoria-metrics-operator
+    targetRevision: 0.56.0
+    helm:
+      values: |-
+        nameOverride: "vm-operator"
+        fullnameOverride: "vm-operator"
+        crds:
+          cleanup:
+            enabled: true
