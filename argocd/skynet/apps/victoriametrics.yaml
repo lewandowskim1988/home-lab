@@ -82,6 +82,11 @@ spec:
                 scheme: http
                 static_configs:
                   - targets: ['ingress-nginx-controller-metrics.ingress-nginx.svc.cluster.local:10254']
+              - job_name: 'gpu'
+                metrics_path: '/metrics'
+                scheme: http
+                static_configs:
+                  - targets: ['dcgm-exporter.nvidia-device-plugin.svc.cluster.local:9400']
         grafana:
           enabled: true
           resources:
