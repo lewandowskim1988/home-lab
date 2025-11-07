@@ -38,7 +38,7 @@ spec:
     server: https://kubernetes.default.svc
   - namespace: secretgen-controller
     server: https://kubernetes.default.svc
-  - namespace: media
+  - namespace: sftp-server
     server: https://kubernetes.default.svc
   - namespace: metallb
     server: https://kubernetes.default.svc
