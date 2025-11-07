@@ -44,6 +44,9 @@ spec:
     server: https://kubernetes.default.svc
   - namespace: kubelet-serving-cert-approver
     server: https://kubernetes.default.svc
+  # Needed by kubelet-serving-cert-approver to create role binding
+  - namespace: default
+    server: https://kubernetes.default.svc
   # Deny all cluster-scoped resources from being created, except for Namespace
   clusterResourceWhitelist:
   - group: '*'
