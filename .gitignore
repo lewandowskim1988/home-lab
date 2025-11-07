@@ -1,1 +1,3 @@
 .init.yaml
+.terragrunt*
+.terraform*
