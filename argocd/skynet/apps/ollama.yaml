@@ -53,7 +53,7 @@ spec:
           size: 200Gi
         extraEnv:
           - name: OLLAMA_CONTEXT_LENGTH
-            value: "16384"
+            value: "32768"
         runtimeClassName: nvidia
         ingress:
           enabled: true
