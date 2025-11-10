@@ -51,9 +51,9 @@ spec:
         persistentVolume:
           enabled: true
           size: 200Gi
-        # extraEnv:
-        #   - name: OLLAMA_CONTEXT_LENGTH
-        #     value: "16384"
+        extraEnv:
+          - name: OLLAMA_CONTEXT_LENGTH
+            value: "16384"
         runtimeClassName: nvidia
         ingress:
           enabled: true
