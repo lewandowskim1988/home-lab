@@ -1,0 +1,9 @@
+machine:
+  kubelet:
+    extraArgs:
+      rotate-server-certificates: true
+  install:
+    disk: ${install_disk}
+    image: ${image}
+  network:
+    hostname: ${hostname}

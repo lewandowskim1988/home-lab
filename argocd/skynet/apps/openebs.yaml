@@ -1,47 +1,47 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: openebs
-  namespace: argocd
-  finalizers:
-  - resources-finalizer.argocd.argoproj.io
-spec:
-  destination:
-    namespace: 'openebs'
-    server: 'https://kubernetes.default.svc'
-  project: apps
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    managedNamespaceMetadata:
-      labels:
-        pod-security.kubernetes.io/enforce: privileged
-    syncOptions:
-    - CreateNamespace=true
-    - ApplyOutOfSyncOnly=true
-    - PruneLast=true
-  source:
-    repoURL: https://openebs.github.io/openebs
-    chart: openebs
-    targetRevision: 4.3.3
-    helm:
-      values: |-
-        nameOverride: "openebs"
-        fullnameOverride: "openebs"
-        engines:
-          local:
-            lvm:
-              enabled: false
-            zfs:
-              enabled: true
-          replicated:
-            mayastor:
-              enabled: false
-        loki:
-          enabled: false
-        alloy:
-          enabled: false
-        zfs-localpv:
-          zfsNode:
-            encrKeysDir: "/var/openebs/keys"
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: openebs
+#   namespace: argocd
+#   finalizers:
+#   - resources-finalizer.argocd.argoproj.io
+# spec:
+#   destination:
+#     namespace: 'openebs'
+#     server: 'https://kubernetes.default.svc'
+#   project: apps
+#   syncPolicy:
+#     automated:
+#       prune: true
+#       selfHeal: true
+#     managedNamespaceMetadata:
+#       labels:
+#         pod-security.kubernetes.io/enforce: privileged
+#     syncOptions:
+#     - CreateNamespace=true
+#     - ApplyOutOfSyncOnly=true
+#     - PruneLast=true
+#   source:
+#     repoURL: https://openebs.github.io/openebs
+#     chart: openebs
+#     targetRevision: 4.3.3
+#     helm:
+#       values: |-
+#         nameOverride: "openebs"
+#         fullnameOverride: "openebs"
+#         engines:
+#           local:
+#             lvm:
+#               enabled: false
+#             zfs:
+#               enabled: true
+#           replicated:
+#             mayastor:
+#               enabled: false
+#         loki:
+#           enabled: false
+#         alloy:
+#           enabled: false
+#         zfs-localpv:
+#           zfsNode:
+#             encrKeysDir: "/var/openebs/keys"

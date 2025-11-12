@@ -1,0 +1,24 @@
+machine:
+  kubelet:
+    extraArgs:
+      rotate-server-certificates: true
+  install:
+    disk: ${install_disk}
+    image: ${image}
+  network:
+    hostname: ${hostname}
+  kernel:
+    modules:
+      - name: nvidia
+      - name: nvidia_uvm
+      - name: nvidia_drm
+      - name: nvidia_modeset
+      - name: zfs
+  sysctls:
+    net.core.bpf_jit_harden: 1
+  nodeLabels:
+    feature.node.kubernetes.io/cpu-model.vendor_id: NVIDIA
+    feature.node.kubernetes.io/pci-10de.present: true
+    nvidia.com/gpu.present: true
+    nvidia.com/mps.capable: true
+
