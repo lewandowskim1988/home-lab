@@ -22,7 +22,7 @@ spec:
     - ApplyOutOfSyncOnly=true
     - PruneLast=true
     - ServerSideApply=true
-    - RespectIgnoreDifferences=true
+    # - RespectIgnoreDifferences=true
   # ignoreDifferences:
   #   - group: ""
   #     kind: Secret
