@@ -115,9 +115,9 @@ spec:
             existingSecret: "grafana-admin-credentials"
             userKey: username
             passwordKey: password
-        kubeEtcd:
-          endpoints:
-            - 192.168.3.25
+        # kubeEtcd:
+        #   endpoints:
+        #     - 192.168.3.25
         extraObjects:
           - apiVersion: secretgen.k14s.io/v1alpha1
             kind: Password
