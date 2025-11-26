@@ -139,6 +139,17 @@ spec:
                   tlsConfig:
                     caFile: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
                     insecureSkipVerify: true
+        kubeControllerManager:
+          vmScrape:
+            spec:
+              endpoints:
+                - bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
+                  port: http-metrics
+                  scheme: https
+                  tlsConfig:
+                    caFile: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+                    serverName: kubernetes
+                    insecureSkipVerify: true
         extraObjects:
           - apiVersion: secretgen.k14s.io/v1alpha1
             kind: Password
