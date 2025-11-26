@@ -138,7 +138,7 @@ spec:
                   scheme: https
                   tlsConfig:
                     caFile: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
-                  insecureSkipVerify: true
+                    insecureSkipVerify: true
         extraObjects:
           - apiVersion: secretgen.k14s.io/v1alpha1
             kind: Password
