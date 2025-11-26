@@ -16,12 +16,12 @@ variable "node_data" {
     controlplanes = map(object({
       install_disk = string
       hostname     = optional(string)
-      image        = optional(string)
+      image        = string
     }))
     workers = map(object({
       install_disk = string
       hostname     = optional(string)
-      image        = optional(string)
+      image        = string
     }))
   })
   default = {
