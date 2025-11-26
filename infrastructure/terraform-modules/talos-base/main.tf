@@ -25,18 +25,8 @@ locals {
 
   is_sbc_platform = contains(local.sbc_platforms, var.platform)
 }
-resource "null_resource" "force_version_recompute" {
-  triggers = {
-    # Force recalculation on each Terraform run by using timestamp
-    timestamp = timestamp()
-    # Add variable trigger to catch changes in stable_versions_only
-    stable_versions_only = var.stable_versions_only
-  }
-}
 
 data "talos_image_factory_versions" "this" {
-  depends_on = [null_resource.force_version_recompute]
-
   filters = {
     stable_versions_only = var.stable_versions_only
   }
