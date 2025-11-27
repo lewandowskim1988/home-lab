@@ -84,11 +84,23 @@ resource "null_resource" "talos_controlplane_upgrade_trigger" {
   }
 }
 
-# resource "null_resource" "talos_worker_upgrade_trigger" {
-#   for_each = var.node_data.workers
+resource "null_resource" "talos_worker_upgrade_trigger" {
+  for_each = var.node_data.workers
 
-#   triggers = {
-#     image = each.value.image
-#   }
-# }
+  triggers = {
+    image = each.value.image
+  }
+
+  provisioner "local-exec" {
+    command = "flock $LOCK_FILE --command ${path.module}/scripts/upgrade-node.sh"
+
+    environment = {
+      LOCK_FILE = "${path.module}/scripts/.upgrade-node.lock"
+
+      TALOS_NODE  = each.key
+      TALOS_IMAGE = each.value.image
+      TIMEOUT     = "10m"
+    }
+  }
+}
 
