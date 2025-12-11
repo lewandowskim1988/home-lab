@@ -22,13 +22,13 @@ spec:
     repoURL: '8gears.container-registry.com/library'
     chart: n8n
     path: n8n
-    targetRevision: 1.1.0
+    targetRevision: 2.0.1
     helm:
       values: |-
         nameOverride: n8n
         fullnameOverride: n8n
-        image:
-          tag: "1.120.2"
+        # image:
+        #   tag: "1.120.2"
         ingress:
           enabled: true
           annotations:
