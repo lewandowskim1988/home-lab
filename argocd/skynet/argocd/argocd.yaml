@@ -88,11 +88,11 @@ spec:
         dex:
           resources:
             limits:
-              cpu: 50m
-              memory: 64Mi
+              cpu: 100m
+              memory: 120Mi
             requests:
-              cpu: 10m
-              memory: 32Mi
+              cpu: 50m
+              memory: 100Mi
         redis:
           resources:
             limits:
