@@ -21,13 +21,13 @@ spec:
   source:
     repoURL: https://otwld.github.io/ollama-helm/
     chart: ollama
-    targetRevision: 1.37.0
+    targetRevision: 1.38.0
     helm:
       values: |-
         nameOverride: ollama
         fullnameOverride: ollama
         image:
-          tag: "0.13.5"
+          tag: "0.14.2"
         ollama:
           gpu:
             enabled: true

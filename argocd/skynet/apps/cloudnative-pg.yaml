@@ -1,0 +1,36 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cloudnative-pg
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: 'cloudnative-pg'
+    server: 'https://kubernetes.default.svc'
+  project: apps
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
+    - ApplyOutOfSyncOnly=true
+    - PruneLast=true
+    - ServerSideApply=true
+  source:
+    repoURL: https://cloudnative-pg.github.io/charts
+    chart: cloudnative-pg
+    targetRevision: 0.27.0
+    helm:
+      values: |-
+        nameOverride: cloudnative-pg
+        fullnameOverride: cloudnative-pg
+        resources:
+          limits:
+            cpu: 150m
+            memory: 200Mi
+          requests:
+            cpu: 100m
+            memory: 100Mi
