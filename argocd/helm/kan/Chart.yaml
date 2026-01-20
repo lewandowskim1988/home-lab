@@ -1,0 +1,17 @@
+apiVersion: v2
+name: kan
+description: A Helm chart for deploying Kan, an open-source Trello alternative
+type: application
+version: 0.1.0
+appVersion: "0.5.3"
+sources:
+  - https://github.com/kanbn/kan
+keywords:
+  - kan
+  - kanboard
+  - trello
+  - project-management
+  - self-hosted
+maintainers:
+  - name: kanbn
+    url: https://github.com/kanbn
