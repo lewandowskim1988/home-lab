@@ -1,56 +1,56 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: kanbn
-  namespace: argocd
-  finalizers:
-  - resources-finalizer.argocd.argoproj.io
-spec:
-  destination:
-    namespace: 'kanbn'
-    server: 'https://kubernetes.default.svc'
-  project: apps
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-    - CreateNamespace=true
-    - ApplyOutOfSyncOnly=true
-    - PruneLast=true
-  source:
-    path: 'argocd/helm/kan'
-    repoURL: https://github.com/lewandowskim1988/home-lab.git
-    targetRevision: HEAD
-    helm:
-      values: |-
-        nameOverride: "kanbn"
-        fullnameOverride: "kanbn"
-        ingress:
-          enabled: true
-          className: "nginx"
-          annotations:
-            nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-            nginx.ingress.kubernetes.io/ssl-redirect: "true"
-          hosts:
-            - host: kanbn.lewandowskim.com
-              paths:
-                - path: /
-                  pathType: ImplementationSpecific
-          tls:
-            - hosts:
-                - kanbn.lewandowskim.com
-              secretName: tls-wildcard-lewandowskim-com
-        # resources:
-        #   limits:
-        #     cpu: 150m
-        #     memory: 200Mi
-        #   requests:
-        #     cpu: 100m
-        #     memory: 128Mi
-        env:
-          - name: POSTGRES_URL
-            valueFrom:
-              secretKeyRef:
-                name: kanbn-app
-                key: fqdn-uri
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: kanbn
+#   namespace: argocd
+#   finalizers:
+#   - resources-finalizer.argocd.argoproj.io
+# spec:
+#   destination:
+#     namespace: 'kanbn'
+#     server: 'https://kubernetes.default.svc'
+#   project: apps
+#   syncPolicy:
+#     automated:
+#       prune: true
+#       selfHeal: true
+#     syncOptions:
+#     - CreateNamespace=true
+#     - ApplyOutOfSyncOnly=true
+#     - PruneLast=true
+#   source:
+#     path: 'argocd/helm/kan'
+#     repoURL: https://github.com/lewandowskim1988/home-lab.git
+#     targetRevision: HEAD
+#     helm:
+#       values: |-
+#         nameOverride: "kanbn"
+#         fullnameOverride: "kanbn"
+#         ingress:
+#           enabled: true
+#           className: "nginx"
+#           annotations:
+#             nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+#             nginx.ingress.kubernetes.io/ssl-redirect: "true"
+#           hosts:
+#             - host: kanbn.lewandowskim.com
+#               paths:
+#                 - path: /
+#                   pathType: ImplementationSpecific
+#           tls:
+#             - hosts:
+#                 - kanbn.lewandowskim.com
+#               secretName: tls-wildcard-lewandowskim-com
+#         # resources:
+#         #   limits:
+#         #     cpu: 150m
+#         #     memory: 200Mi
+#         #   requests:
+#         #     cpu: 100m
+#         #     memory: 128Mi
+#         env:
+#           - name: POSTGRES_URL
+#             valueFrom:
+#               secretKeyRef:
+#                 name: kanbn-app
+#                 key: fqdn-uri
