@@ -52,7 +52,7 @@ spec:
           - name: POSTGRES_URL
             valueFrom:
               secretKeyRef:
-                name: kanbn-app
+                name: kan-app
                 key: fqdn-uri
           - name: NEXT_PUBLIC_ALLOW_CREDENTIALS
             value: "true"
