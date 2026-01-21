@@ -41,13 +41,13 @@ spec:
             - hosts:
                 - kan.lewandowskim.com
               secretName: tls-wildcard-lewandowskim-com
-        # resources:
-        #   limits:
-        #     cpu: 150m
-        #     memory: 200Mi
-        #   requests:
-        #     cpu: 100m
-        #     memory: 128Mi
+        resources:
+          limits:
+            cpu: 350m
+            memory: 600Mi
+          requests:
+            cpu: 300m
+            memory: 500Mi
         env:
           - name: POSTGRES_URL
             valueFrom:
