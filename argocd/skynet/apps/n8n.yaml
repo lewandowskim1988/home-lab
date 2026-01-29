@@ -38,7 +38,8 @@ spec:
           hosts:
             - host: n8n.lewandowskim.com
               paths:
-                - "/"
+                - path: "/"
+                  pathType: Prefix
           tls:
             - hosts:
                 - n8n.lewandowskim.com
