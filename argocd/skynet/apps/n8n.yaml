@@ -54,6 +54,8 @@ spec:
               value: "https://n8n.lewandowskim.com"
             WEBHOOK_URL:
               value: "https://n8n.lewandowskim.com"
+            N8N_PAYLOAD_SIZE_MAX:
+              value: "268435456"
           # extraVolumes:
           #   - name: share
           #     persistentVolumeClaim:
