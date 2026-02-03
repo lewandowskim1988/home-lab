@@ -35,6 +35,7 @@ spec:
             memory: 80Mi
         sources:
           - ingress
+          - gateway-httproute
         policy: "sync"
         provider:
           name: cloudflare
