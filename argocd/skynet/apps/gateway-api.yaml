@@ -18,6 +18,7 @@ spec:
     - CreateNamespace=true
     - ApplyOutOfSyncOnly=true
     - PruneLast=true
+    - ServerSideApply=true
   source:
     path: 'argocd/kustomize/gateway-api'
     repoURL: https://github.com/lewandowskim1988/home-lab.git
