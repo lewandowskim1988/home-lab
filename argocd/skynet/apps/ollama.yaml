@@ -46,6 +46,7 @@ spec:
               #   template: |
               #     FROM embeddinggemma:300m
               #     PARAMETER num_ctx 32768
+            clean: true
         resources:
           requests:
             memory: 4Gi
