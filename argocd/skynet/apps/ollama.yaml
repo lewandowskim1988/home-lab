@@ -40,6 +40,7 @@ spec:
               - qwen3:30b-a3b-instruct-2507-q4_K_M
               - qwen3-vl:8b
               - glm-4.7-flash:q4_K_M
+              - qwen3-coder-next:q4_K_M
             run: []
             create: []
               # - name: embeddinggemma-32768
