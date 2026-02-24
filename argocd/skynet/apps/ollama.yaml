@@ -1,79 +1,80 @@
-# apiVersion: argoproj.io/v1alpha1
-# kind: Application
-# metadata:
-#   name: ollama
-#   namespace: argocd
-#   finalizers:
-#   - resources-finalizer.argocd.argoproj.io
-# spec:
-#   destination:
-#     namespace: 'ollama'
-#     server: 'https://kubernetes.default.svc'
-#   project: apps
-#   syncPolicy:
-#     automated:
-#       prune: true
-#       selfHeal: true
-#     syncOptions:
-#     - CreateNamespace=true
-#     - ApplyOutOfSyncOnly=true
-#     - PruneLast=true
-#   source:
-#     repoURL: https://otwld.github.io/ollama-helm/
-#     chart: ollama
-#     targetRevision: 1.41.0
-#     helm:
-#       values: |-
-#         nameOverride: ollama
-#         fullnameOverride: ollama
-#         image:
-#           tag: "0.15.5-rc2"
-#         ollama:
-#           gpu:
-#             enabled: true
-#             type: "nvidia"
-#             number: 2
-#           models:
-#             pull:
-#               - qwen3-coder:30b-a3b-q4_K_M
-#               - qwen3-embedding:8b-fp16
-#               - qwen3:30b-a3b-instruct-2507-q4_K_M
-#               - qwen3-vl:8b
-#               - glm-4.7-flash:q4_K_M
-#             run: []
-#             create: []
-#               # - name: embeddinggemma-32768
-#               #   template: |
-#               #     FROM embeddinggemma:300m
-#               #     PARAMETER num_ctx 32768
-#             clean: true
-#         resources:
-#           requests:
-#             memory: 4Gi
-#             cpu: 2
-#         persistentVolume:
-#           enabled: true
-#           size: 200Gi
-#         extraEnv:
-#           - name: OLLAMA_CONTEXT_LENGTH
-#             value: "49152"
-#         runtimeClassName: nvidia
-#         ingress:
-#           enabled: true
-#           className: "nginx"
-#           annotations:
-#             nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-#             nginx.ingress.kubernetes.io/ssl-redirect: "true"
-#             nginx.ingress.kubernetes.io/proxy-connect-timeout: "600"
-#             nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
-#             nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
-#             nginx.ingress.kubernetes.io/proxy-body-size: "10m"
-#           hosts:
-#             - host: ollama.lewandowskim.com
-#               paths:
-#                 - path: /
-#                   pathType: Prefix
-#           tls:
-#             - secretName: tls-wildcard-lewandowskim-com
-#               hosts:
-#                 - ollama.lewandowskim.com
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ollama
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: 'ollama'
+    server: 'https://kubernetes.default.svc'
+  project: apps
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
+    - ApplyOutOfSyncOnly=true
+    - PruneLast=true
+  source:
+    repoURL: https://otwld.github.io/ollama-helm/
+    chart: ollama
+    targetRevision: 1.41.0
+    helm:
+      values: |-
+        nameOverride: ollama
+        fullnameOverride: ollama
+        image:
+          tag: "0.15.5-rc2"
+        ollama:
+          gpu:
+            enabled: true
+            type: "nvidia"
+            number: 2
+          models:
+            pull:
+              - qwen3-coder:30b-a3b-q4_K_M
+              - qwen3-embedding:8b-fp16
+              - qwen3:30b-a3b-instruct-2507-q4_K_M
+              - qwen3-vl:8b
+              - glm-4.7-flash:q4_K_M
+            run: []
+            create: []
+              # - name: embeddinggemma-32768
+              #   template: |
+              #     FROM embeddinggemma:300m
+              #     PARAMETER num_ctx 32768
+            clean: true
+        resources:
+          requests:
+            memory: 4Gi
+            cpu: 2
+        persistentVolume:
+          enabled: true
+          size: 200Gi
+        extraEnv:
+          - name: OLLAMA_CONTEXT_LENGTH
+            # value: "49152"
+            value: "100000"
+        runtimeClassName: nvidia
+        ingress:
+          enabled: true
+          className: "nginx"
+          annotations:
+            nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+            nginx.ingress.kubernetes.io/ssl-redirect: "true"
+            nginx.ingress.kubernetes.io/proxy-connect-timeout: "600"
+            nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
+            nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
+            nginx.ingress.kubernetes.io/proxy-body-size: "10m"
+          hosts:
+            - host: ollama.lewandowskim.com
+              paths:
+                - path: /
+                  pathType: Prefix
+          tls:
+            - secretName: tls-wildcard-lewandowskim-com
+              hosts:
+                - ollama.lewandowskim.com
