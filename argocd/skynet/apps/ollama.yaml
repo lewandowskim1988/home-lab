@@ -21,13 +21,13 @@ spec:
   source:
     repoURL: https://otwld.github.io/ollama-helm/
     chart: ollama
-    targetRevision: 1.41.0
+    targetRevision: 1.46.0
     helm:
       values: |-
         nameOverride: ollama
         fullnameOverride: ollama
         image:
-          tag: "0.15.5-rc2"
+          tag: "0.17.4"
         ollama:
           gpu:
             enabled: true
@@ -39,7 +39,6 @@ spec:
               - qwen3:30b-a3b-instruct-2507-q4_K_M
               - qwen3-vl:8b
               - glm-4.7-flash:q4_K_M
-              - deepseek-r1:14b
             run: []
             create: []
               # - name: embeddinggemma-32768
@@ -56,8 +55,8 @@ spec:
           size: 200Gi
         extraEnv:
           - name: OLLAMA_CONTEXT_LENGTH
-            value: "10152"
-            # value: "100000"
+            # value: "10152"
+            value: "100000"
         runtimeClassName: nvidia
         ingress:
           enabled: true
