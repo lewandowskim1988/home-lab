@@ -35,11 +35,11 @@ spec:
             number: 2
           models:
             pull:
-              - qwen3-coder:30b-a3b-q4_K_M
               - qwen3-embedding:8b-fp16
               - qwen3:30b-a3b-instruct-2507-q4_K_M
               - qwen3-vl:8b
               - glm-4.7-flash:q4_K_M
+              - deepseek-r1:14b
             run: []
             create: []
               # - name: embeddinggemma-32768
