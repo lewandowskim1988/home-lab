@@ -26,7 +26,7 @@ spec:
   source:
     repoURL: https://victoriametrics.github.io/helm-charts
     chart: victoria-metrics-operator
-    targetRevision: 0.57.1
+    targetRevision: 0.59.1
     helm:
       values: |-
         nameOverride: "vm-operator"
