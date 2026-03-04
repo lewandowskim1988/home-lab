@@ -22,7 +22,7 @@ spec:
   source:
     repoURL: https://cloudnative-pg.github.io/charts
     chart: cloudnative-pg
-    targetRevision: 0.27.0
+    targetRevision: 0.27.1
     helm:
       values: |-
         nameOverride: cloudnative-pg
