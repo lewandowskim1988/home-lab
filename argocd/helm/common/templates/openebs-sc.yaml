@@ -13,7 +13,7 @@ allowedTopologies:
 - matchLabelExpressions:
   - key: kubernetes.io/hostname
     values:
-      - skynet-worker-0
+      - talos-4u9-oeh
 parameters:
   recordsize: "128k"
   compression: "off"
@@ -37,7 +37,7 @@ allowedTopologies:
 - matchLabelExpressions:
   - key: kubernetes.io/hostname
     values:
-      - skynet-worker-0
+      - talos-4u9-oeh
 parameters:
   recordsize: "128k"
   compression: "off"
