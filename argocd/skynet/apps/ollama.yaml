@@ -32,7 +32,7 @@ spec:
           gpu:
             enabled: true
             type: "nvidia"
-            number: 1
+            number: 2
           models:
             pull:
               - qwen3-embedding:8b-fp16
