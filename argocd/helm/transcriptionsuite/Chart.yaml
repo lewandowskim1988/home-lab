@@ -1,0 +1,13 @@
+apiVersion: v2
+name: transcriptionsuite
+description: A Helm chart for TranscriptionSuite GPU server
+type: application
+version: 1.0.0
+appVersion: "v1.1.3"
+keywords:
+  - transcription
+  - speech-to-text
+  - gpu
+maintainers:
+  - name: DevOps
+    email: devops@example.com

@@ -1,0 +1,82 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "transcriptionsuite.fullname" . }}
+  labels:
+    {{- include "transcriptionsuite.labels" . | nindent 4 }}
+    version: {{ .Values.labels.version }}
+    component: {{ .Values.labels.component }}
+    type: {{ .Values.labels.type }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      {{- include "transcriptionsuite.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "transcriptionsuite.selectorLabels" . | nindent 8 }}
+        version: {{ .Values.labels.version }}
+        component: {{ .Values.labels.component }}
+        type: {{ .Values.labels.type }}
+    spec:
+      {{- if .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml .Values.imagePullSecrets | nindent 8 }}
+      {{- end }}
+      {{- if .Values.runtimeClassName }}
+      runtimeClassName: {{ .Values.runtimeClassName }}
+      {{- end }}
+      containers:
+      - name: server
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        ports:
+        - name: http
+          containerPort: {{ .Values.service.http.targetPort }}
+          protocol: TCP
+        - name: health
+          containerPort: {{ .Values.service.health.targetPort }}
+          protocol: TCP
+        env:
+          {{- toYaml .Values.env | nindent 10 }}
+          {{- range .Values.secretEnvVars }}
+          - name: {{ .name }}
+            valueFrom:
+              secretKeyRef:
+                name: {{ .secretName }}
+                key: {{ .secretKey }}
+          {{- end }}
+        volumeMounts:
+        {{- if .Values.persistence.data.enabled }}
+        - name: data
+          mountPath: /data
+        {{- end }}
+        {{- if .Values.persistence.models.enabled }}
+        - name: models
+          mountPath: /models
+        {{- end }}
+        {{- if .Values.persistence.runtime.enabled }}
+        - name: runtime
+          mountPath: /runtime
+        {{- end }}
+        resources:
+          {{- toYaml .Values.resources | nindent 12 }}
+      volumes:
+      {{- if .Values.persistence.data.enabled }}
+      - name: data
+        persistentVolumeClaim:
+          claimName: {{ include "transcriptionsuite.fullname" . }}-data
+      {{- end }}
+      {{- if .Values.persistence.models.enabled }}
+      - name: models
+        persistentVolumeClaim:
+          claimName: {{ include "transcriptionsuite.fullname" . }}-models
+      {{- end }}
+      {{- if .Values.persistence.runtime.enabled }}
+      - name: runtime
+        persistentVolumeClaim:
+          claimName: {{ include "transcriptionsuite.fullname" . }}-runtime
+      {{- end }}

@@ -52,6 +52,8 @@ spec:
     server: https://kubernetes.default.svc
   - namespace: gateway-api
     server: https://kubernetes.default.svc
+  - namespace: transcriptionsuite
+    server: https://kubernetes.default.svc
   # Needed by kubelet-serving-cert-approver to create role binding
   - namespace: default
     server: https://kubernetes.default.svc

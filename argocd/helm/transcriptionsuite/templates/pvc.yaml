@@ -1,0 +1,56 @@
+{{- if .Values.persistence.data.enabled }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "transcriptionsuite.fullname" . }}-data
+  labels:
+    {{- include "transcriptionsuite.labels" . | nindent 4 }}
+    component: pvc
+spec:
+  accessModes:
+    - {{ .Values.persistence.data.accessMode | quote }}
+  resources:
+    requests:
+      storage: {{ .Values.persistence.data.size }}
+  {{- if .Values.persistence.data.storageClass }}
+  storageClassName: {{ .Values.persistence.data.storageClass }}
+  {{- end }}
+{{- end }}
+---
+{{- if .Values.persistence.models.enabled }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "transcriptionsuite.fullname" . }}-models
+  labels:
+    {{- include "transcriptionsuite.labels" . | nindent 4 }}
+    component: pvc
+spec:
+  accessModes:
+    - {{ .Values.persistence.models.accessMode | quote }}
+  resources:
+    requests:
+      storage: {{ .Values.persistence.models.size }}
+  {{- if .Values.persistence.models.storageClass }}
+  storageClassName: {{ .Values.persistence.models.storageClass }}
+  {{- end }}
+{{- end }}
+---
+{{- if .Values.persistence.runtime.enabled }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "transcriptionsuite.fullname" . }}-runtime
+  labels:
+    {{- include "transcriptionsuite.labels" . | nindent 4 }}
+    component: pvc
+spec:
+  accessModes:
+    - {{ .Values.persistence.runtime.accessMode | quote }}
+  resources:
+    requests:
+      storage: {{ .Values.persistence.runtime.size }}
+  {{- if .Values.persistence.runtime.storageClass }}
+  storageClassName: {{ .Values.persistence.runtime.storageClass }}
+  {{- end }}
+{{- end }}
