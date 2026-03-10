@@ -74,4 +74,3 @@ spec:
             - secretKey: HF_TOKEN
               remoteRef:
                 key: "/homelab/HF_TOKEN"
-                property: HF_TOKEN
