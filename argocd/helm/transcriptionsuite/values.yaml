@@ -103,7 +103,7 @@ persistence:
     enabled: true
     storageClass: ""
     accessMode: ReadWriteOnce
-    size: 10Gi
+    size: 30Gi
 
 labels:
   version: v1
