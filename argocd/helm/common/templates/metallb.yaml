@@ -16,4 +16,4 @@ spec:
   ipAddressPools:
   - default
   interfaces:
-  - enp8s0
+  - enp7s0
