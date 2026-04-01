@@ -41,13 +41,6 @@ data "talos_image_factory_extensions_versions" "this" {
   }
 }
 
-resource "null_resource" "force_url_recompute" {
-  triggers = {
-    platform = var.platform
-    timestamp = timestamp()
-  }
-}
-
 resource "talos_image_factory_schematic" "this" {
   schematic = yamlencode(
     {
@@ -61,8 +54,6 @@ resource "talos_image_factory_schematic" "this" {
 }
 
 data "talos_image_factory_urls" "this" {
-  depends_on = [null_resource.force_url_recompute]
-
   talos_version = element(data.talos_image_factory_versions.this.talos_versions, length(data.talos_image_factory_versions.this.talos_versions) - 1)
   schematic_id  = talos_image_factory_schematic.this.id
 

@@ -17,8 +17,8 @@ include {
 inputs = {
   platform        = "metal"
   extension_names = [
-    "siderolabs/nonfree-kmod-nvidia-production",
-    "siderolabs/nvidia-container-toolkit-production",
+    "siderolabs/amdgpu",
+    "siderolabs/amd-ucode",
     "siderolabs/zfs"
   ]
 }

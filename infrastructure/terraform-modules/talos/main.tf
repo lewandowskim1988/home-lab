@@ -28,7 +28,6 @@ resource "talos_machine_configuration_apply" "controlplane" {
   node                        = each.key
   config_patches = [
     templatefile("${path.module}/templates/controlplane.tmpl", {
-      hostname     = each.value.hostname == null ? format("%s-cp-%s", var.cluster_name, index(keys(var.node_data.controlplanes), each.key)) : each.value.hostname
       install_disk = each.value.install_disk
       image        = each.value.image
     })
@@ -43,7 +42,6 @@ resource "talos_machine_configuration_apply" "worker" {
   node                        = each.key
   config_patches = [
     templatefile("${path.module}/templates/worker.tmpl", {
-      hostname     = each.value.hostname == null ? format("%s-worker-%s", var.cluster_name, index(keys(var.node_data.workers), each.key)) : each.value.hostname
       install_disk = each.value.install_disk
       image        = each.value.image
     })
@@ -63,44 +61,63 @@ resource "talos_cluster_kubeconfig" "this" {
   node                 = [for k, v in var.node_data.controlplanes : k][0]
 }
 
-# Hack: https://github.com/siderolabs/terraform-provider-talos/issues/140
-resource "null_resource" "talos_controlplane_upgrade_trigger" {
-  for_each = var.node_data.controlplanes
+# # Hack: https://github.com/siderolabs/terraform-provider-talos/issues/140
+# resource "null_resource" "talos_controlplane_upgrade_trigger" {
+#   for_each = var.node_data.controlplanes
 
-  triggers = {
-    image = each.value.image
-  }
+#   triggers = {
+#     image       = each.value.image
+#   }
 
-  provisioner "local-exec" {
-    command = "flock $LOCK_FILE --command ${path.module}/scripts/upgrade-node.sh"
+#   provisioner "local-exec" {
+#     command = "flock $LOCK_FILE --command ${path.module}/scripts/upgrade-node.sh"
 
-    environment = {
-      LOCK_FILE = "${path.module}/scripts/.upgrade-node.lock"
+#     environment = {
+#       LOCK_FILE = "${path.module}/scripts/.upgrade-node.lock"
 
-      TALOS_NODE  = each.key
-      TALOS_IMAGE = each.value.image
-      TIMEOUT     = "10m"
-    }
-  }
-}
+#       TALOS_NODE  = each.key
+#       TALOS_IMAGE = each.value.image
+#       K8S_VERSION = each.value.k8s_version
+#       TIMEOUT     = "20m"
+#     }
+#   }
+# }
 
-resource "null_resource" "talos_worker_upgrade_trigger" {
-  for_each = var.node_data.workers
+# resource "null_resource" "talos_worker_upgrade_trigger" {
+#   for_each = var.node_data.workers
 
-  triggers = {
-    image = each.value.image
-  }
+#   triggers = {
+#     image = each.value.image
+#   }
 
-  provisioner "local-exec" {
-    command = "flock $LOCK_FILE --command ${path.module}/scripts/upgrade-node.sh"
+#   provisioner "local-exec" {
+#     command = "flock $LOCK_FILE --command ${path.module}/scripts/upgrade-node.sh"
 
-    environment = {
-      LOCK_FILE = "${path.module}/scripts/.upgrade-node.lock"
+#     environment = {
+#       LOCK_FILE = "${path.module}/scripts/.upgrade-node.lock"
 
-      TALOS_NODE  = each.key
-      TALOS_IMAGE = each.value.image
-      TIMEOUT     = "10m"
-    }
-  }
-}
+#       TALOS_NODE  = each.key
+#       TALOS_IMAGE = each.value.image
+#       TIMEOUT     = "20m"
+#     }
+#   }
+# }
 
+# resource "null_resource" "talos_upgrade_k8s_trigger" {
+#   for_each = var.node_data.controlplanes
+
+#   triggers = {
+#     k8s_version = each.value.k8s_version
+#   }
+
+#   provisioner "local-exec" {
+#     command = "flock $LOCK_FILE --command ${path.module}/scripts/upgrade-k8s.sh"
+
+#     environment = {
+#       LOCK_FILE = "${path.module}/scripts/.upgrade-k8s.lock"
+
+#       TALOS_NODE  = each.key
+#       K8S_VERSION = each.value.k8s_version
+#     }
+#   }
+# }

@@ -24,8 +24,6 @@ spec:
     server: https://kubernetes.default.svc
   - namespace: ingress-nginx
     server: https://kubernetes.default.svc
-  - namespace: nvidia-device-plugin
-    server: https://kubernetes.default.svc
   - namespace: ollama
     server: https://kubernetes.default.svc
   - namespace: open-webui
@@ -36,10 +34,6 @@ spec:
     server: https://kubernetes.default.svc
   - namespace: openebs
     server: https://kubernetes.default.svc
-  - namespace: secretgen-controller
-    server: https://kubernetes.default.svc
-  - namespace: sftp-server
-    server: https://kubernetes.default.svc
   - namespace: metallb
     server: https://kubernetes.default.svc
   - namespace: kubelet-serving-cert-approver
@@ -49,8 +43,6 @@ spec:
   - namespace: kan
     server: https://kubernetes.default.svc
   - namespace: indicator
-    server: https://kubernetes.default.svc
-  - namespace: gateway-api
     server: https://kubernetes.default.svc
   - namespace: transcriptionsuite
     server: https://kubernetes.default.svc

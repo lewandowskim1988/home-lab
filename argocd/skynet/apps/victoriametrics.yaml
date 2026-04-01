@@ -38,7 +38,7 @@ spec:
   source:
     repoURL: https://victoriametrics.github.io/helm-charts/
     chart: victoria-metrics-k8s-stack
-    targetRevision: 0.72.2
+    targetRevision: 0.72.5
     helm:
       values: |-
         nameOverride: "vm"
@@ -85,11 +85,6 @@ spec:
                 scheme: http
                 static_configs:
                   - targets: ['ingress-nginx-controller-metrics.ingress-nginx.svc.cluster.local:10254']
-              - job_name: 'gpu'
-                metrics_path: '/metrics'
-                scheme: http
-                static_configs:
-                  - targets: ['dcgm-exporter.nvidia-device-plugin.svc.cluster.local:9400']
         grafana:
           enabled: true
           resources:
@@ -117,7 +112,7 @@ spec:
             passwordKey: password
         kubeEtcd:
           endpoints:
-            - 192.168.3.25
+            - 192.168.0.120
           service:
             port: 2381
             targetPort: 2381
@@ -151,14 +146,23 @@ spec:
                     serverName: kubernetes
                     insecureSkipVerify: true
         extraObjects:
-          - apiVersion: secretgen.k14s.io/v1alpha1
+          - apiVersion: generators.external-secrets.io/v1alpha1
             kind: Password
             metadata:
               name: grafana-admin-credentials
             spec:
               length: 25
-              secretTemplate:
-                type: Opaque
-                stringData:
-                  username: admin
-                  password: $(value)
+          - apiVersion: external-secrets.io/v1
+            kind: ExternalSecret
+            metadata:
+              name: grafana-admin-credentials
+            spec:
+              refreshInterval: "24h"
+              target:
+                name: grafana-admin-credentials
+              dataFrom:
+              - sourceRef:
+                  generatorRef:
+                    apiVersion: generators.external-secrets.io/v1alpha1
+                    kind: Password
+                    name: grafana-admin-credentials

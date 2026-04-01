@@ -36,18 +36,18 @@ dependency "talos_base_worker" {
 
 inputs = {
   cluster_name     = local.environment_vars.locals.cluster_name
-  cluster_endpoint = "https://192.168.3.25:6443"
+  cluster_endpoint = "https://192.168.0.120:6443"
 
   node_data = {
     controlplanes = {
-      "192.168.3.25" = {
+      "192.168.0.120" = {
         install_disk = "/dev/mmcblk0"
         image        = dependency.talos_base_controlplane.outputs.image
       }
     }
     workers = {
-      "192.168.3.10" = {
-        install_disk = "/dev/sdb"
+      "192.168.0.214" = {
+        install_disk = "/dev/nvme1n1"
         image        = dependency.talos_base_worker.outputs.image
       }
     }

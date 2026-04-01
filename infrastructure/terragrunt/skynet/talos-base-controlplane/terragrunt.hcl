@@ -16,8 +16,4 @@ include {
 
 inputs = {
   platform = "rpi_generic"
-
-  contrib_extension_names = [
-    "ghcr.io/siderolabs/netbird:0.60.9"
-  ]
 }

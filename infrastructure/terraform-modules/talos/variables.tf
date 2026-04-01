@@ -15,12 +15,10 @@ variable "node_data" {
   type = object({
     controlplanes = map(object({
       install_disk = string
-      hostname     = optional(string)
       image        = string
     }))
     workers = map(object({
       install_disk = string
-      hostname     = optional(string)
       image        = string
     }))
   })

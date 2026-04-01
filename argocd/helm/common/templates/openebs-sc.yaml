@@ -1,30 +1,6 @@
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
-  name: hdd
-  labels:
-    {{- include "common.labels" . | nindent 4 }}
-  annotations:
-    storageclass.kubernetes.io/is-default-class: "false"
-allowVolumeExpansion: true
-volumeBindingMode: Immediate
-provisioner: zfs.csi.openebs.io
-allowedTopologies:
-- matchLabelExpressions:
-  - key: kubernetes.io/hostname
-    values:
-      - talos-4u9-oeh
-parameters:
-  recordsize: "128k"
-  compression: "off"
-  dedup: "off"
-  fstype: "zfs"
-  poolname: "hdd"
-  shared: "yes"
----
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
   name: ssd
   labels:
     {{- include "common.labels" . | nindent 4 }}
@@ -37,7 +13,7 @@ allowedTopologies:
 - matchLabelExpressions:
   - key: kubernetes.io/hostname
     values:
-      - talos-4u9-oeh
+      - talos-3gv-elf
 parameters:
   recordsize: "128k"
   compression: "off"

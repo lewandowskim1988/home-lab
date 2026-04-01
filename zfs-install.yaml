@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: zfs-shell
+spec:
+  hostIPC: true
+  hostNetwork: true
+  hostPID: true
+  containers:
+    - command: ["sleep", "infinity"]
+      image: debian
+      name: shell
+      securityContext:
+        privileged: true
+
+# kubectl exec pod/zfs-shell -- \
+#   nsenter --mount=/proc/1/ns/mnt -- \
+#   zpool status
+
+# kubectl exec pod/zfs-shell -- nsenter --mount=/proc/1/ns/mnt -- \
+#   zpool create -m legacy -f ssd /dev/nvme0n1
