@@ -2,4 +2,4 @@
 set -euo pipefail
 
 helm template argocd \
-  -f argocd/values-skynet.yaml argo/argo-cd | kubectl --server-side=true -n argocd apply -f-
+  -f argocd/values-skynet.yaml argo/argo-cd --namespace argocd | kubectl --server-side=true -n argocd apply -f-

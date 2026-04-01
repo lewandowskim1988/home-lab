@@ -160,6 +160,10 @@ spec:
               refreshInterval: "24h"
               target:
                 name: grafana-admin-credentials
+                template:
+                  data:
+                    username: admin
+                    password: "{{ `{{ .password }}` }}"
               dataFrom:
               - sourceRef:
                   generatorRef:
