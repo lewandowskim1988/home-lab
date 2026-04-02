@@ -36,6 +36,7 @@ spec:
           models:
             pull:
               - ministral-3:8b
+              - glm-4.7-flash:q4_K_M
             run: []
             create: []
               # - name: embeddinggemma-32768
