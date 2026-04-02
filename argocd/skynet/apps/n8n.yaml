@@ -20,8 +20,8 @@ spec:
     - PruneLast=true
   source:
     repoURL: https://community-charts.github.io/helm-charts
-    chart: community-charts
-    path: n8n
+    chart: n8n
+    path: community-charts
     targetRevision: 1.16.35
     helm:
       values: |-
