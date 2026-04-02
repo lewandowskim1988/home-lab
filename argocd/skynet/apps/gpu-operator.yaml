@@ -34,6 +34,7 @@ spec:
         fullnameOverride: gpu-operator
         controllerManager:
           manager:
+            tolerations: []
             resources:
               limits:
                 cpu: 50m
