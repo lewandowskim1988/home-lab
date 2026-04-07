@@ -1,76 +1,76 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: transcriptionsuite
-  namespace: argocd
-  finalizers:
-  - resources-finalizer.argocd.argoproj.io
-spec:
-  destination:
-    namespace: 'transcriptionsuite'
-    server: 'https://kubernetes.default.svc'
-  project: apps
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    managedNamespaceMetadata:
-      labels:
-        pod-security.kubernetes.io/audit: privileged
-        pod-security.kubernetes.io/enforce: privileged
-        pod-security.kubernetes.io/enforce-version: latest
-        pod-security.kubernetes.io/warn: privileged
-    syncOptions:
-    - CreateNamespace=true
-    - ApplyOutOfSyncOnly=true
-    - PruneLast=true
-  source:
-    path: 'argocd/helm/transcriptionsuite'
-    repoURL: https://github.com/lewandowskim1988/home-lab.git
-    targetRevision: HEAD
-    helm:
-      values: |-
-        nameOverride: "transcriptionsuite"
-        fullnameOverride: "transcriptionsuite"
-        image:
-          tag: "v1.3.0"
-        ingress:
-          enabled: true
-          className: nginx
-          annotations:
-            nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-            nginx.ingress.kubernetes.io/ssl-redirect: "true"
-            nginx.ingress.kubernetes.io/proxy-body-size: "5000m"
-          hosts:
-            - host: video-transcript.lewandowskim.com
-              paths:
-                - path: /
-                  pathType: ImplementationSpecific
-          tls:
-            - secretName: tls-wildcard-lewandowskim-com
-              hosts:
-                - video-transcript.lewandowskim.com
-        resources:
-          requests:
-            cpu: "1"
-            memory: "2Gi"
-            amd.com/gpu: 1
-          limits:
-            amd.com/gpu: 1
-        extraObjects:
-        - apiVersion: external-secrets.io/v1
-          kind: ExternalSecret
-          metadata:
-            name: huggingface-token
-          spec:
-            refreshInterval: 12h
-            secretStoreRef:
-              name: aws-parameter-store
-              kind: ClusterSecretStore
-            target:
-              name: huggingface-token
-              creationPolicy: Owner
-            data:
-            - secretKey: HF_TOKEN
-              remoteRef:
-                key: "/homelab/HF_TOKEN"
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: transcriptionsuite
+#   namespace: argocd
+#   finalizers:
+#   - resources-finalizer.argocd.argoproj.io
+# spec:
+#   destination:
+#     namespace: 'transcriptionsuite'
+#     server: 'https://kubernetes.default.svc'
+#   project: apps
+#   syncPolicy:
+#     automated:
+#       prune: true
+#       selfHeal: true
+#     managedNamespaceMetadata:
+#       labels:
+#         pod-security.kubernetes.io/audit: privileged
+#         pod-security.kubernetes.io/enforce: privileged
+#         pod-security.kubernetes.io/enforce-version: latest
+#         pod-security.kubernetes.io/warn: privileged
+#     syncOptions:
+#     - CreateNamespace=true
+#     - ApplyOutOfSyncOnly=true
+#     - PruneLast=true
+#   source:
+#     path: 'argocd/helm/transcriptionsuite'
+#     repoURL: https://github.com/lewandowskim1988/home-lab.git
+#     targetRevision: HEAD
+#     helm:
+#       values: |-
+#         nameOverride: "transcriptionsuite"
+#         fullnameOverride: "transcriptionsuite"
+#         image:
+#           tag: "v1.3.0"
+#         ingress:
+#           enabled: true
+#           className: nginx
+#           annotations:
+#             nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+#             nginx.ingress.kubernetes.io/ssl-redirect: "true"
+#             nginx.ingress.kubernetes.io/proxy-body-size: "5000m"
+#           hosts:
+#             - host: video-transcript.lewandowskim.com
+#               paths:
+#                 - path: /
+#                   pathType: ImplementationSpecific
+#           tls:
+#             - secretName: tls-wildcard-lewandowskim-com
+#               hosts:
+#                 - video-transcript.lewandowskim.com
+#         resources:
+#           requests:
+#             cpu: "1"
+#             memory: "2Gi"
+#             amd.com/gpu: 1
+#           limits:
+#             amd.com/gpu: 1
+#         extraObjects:
+#         - apiVersion: external-secrets.io/v1
+#           kind: ExternalSecret
+#           metadata:
+#             name: huggingface-token
+#           spec:
+#             refreshInterval: 12h
+#             secretStoreRef:
+#               name: aws-parameter-store
+#               kind: ClusterSecretStore
+#             target:
+#               name: huggingface-token
+#               creationPolicy: Owner
+#             data:
+#             - secretKey: HF_TOKEN
+#               remoteRef:
+#                 key: "/homelab/HF_TOKEN"
