@@ -151,27 +151,14 @@ spec:
                     serverName: kubernetes
                     insecureSkipVerify: true
         extraObjects:
-          - apiVersion: generators.external-secrets.io/v1alpha1
+          - apiVersion: secretgen.k14s.io/v1alpha1
             kind: Password
             metadata:
               name: grafana-admin-credentials
             spec:
               length: 25
-          - apiVersion: external-secrets.io/v1
-            kind: ExternalSecret
-            metadata:
-              name: grafana-admin-credentials
-            spec:
-              refreshInterval: "24h"
-              target:
-                name: grafana-admin-credentials
-                template:
-                  data:
-                    username: admin
-                    password: "{{ `{{ .password }}` }}"
-              dataFrom:
-              - sourceRef:
-                  generatorRef:
-                    apiVersion: generators.external-secrets.io/v1alpha1
-                    kind: Password
-                    name: grafana-admin-credentials
+              secretTemplate:
+                type: Opaque
+                stringData:
+                  username: admin
+                  password: $(value)
