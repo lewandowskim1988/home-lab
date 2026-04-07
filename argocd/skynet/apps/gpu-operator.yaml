@@ -46,3 +46,6 @@ spec:
           controller:
             manager:
               tolerations: []
+          webhookServer:
+            webhookServer:
+              tolerations: []
