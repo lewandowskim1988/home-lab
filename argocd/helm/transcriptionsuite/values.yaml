@@ -62,12 +62,8 @@ env:
     value: "abi_only"
   - name: BOOTSTRAP_LOG_CHANGES
     value: "true"
-  - name: CUDA_VISIBLE_DEVICES
-    value: "0"
   - name: TF_CPP_MIN_LOG_LEVEL
     value: "3"
-  - name: TORCH_CUDA_ALLOC_CONF
-    value: "max_split_size_mb:512"
   - name: INSTALL_NEMO
     value: "true"
 
@@ -85,8 +81,6 @@ resources: {}
   #   cpu: "1.2"
   #   memory: "1.5Gi"
   #   nvidia.com/gpu: 1
-
-runtimeClassName: nvidia
 
 persistence:
   data:
