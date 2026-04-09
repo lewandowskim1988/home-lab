@@ -1,0 +1,71 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: rustfs
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: "rustfs"
+    server: "https://kubernetes.default.svc"
+  project: apps
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ApplyOutOfSyncOnly=true
+      - PruneLast=true
+  source:
+    repoURL: https://charts.rustfs.com
+    chart: rustfs
+    targetRevision: 0.0.91
+    helm:
+      values: |-
+        nameOverride: rustfs
+        fullnameOverride: rustfs
+        replicaCount: 1
+        mode:
+          standalone:
+            enabled: true
+          distributed:
+            enabled: false
+        secret:
+          existingSecret: "rustfs-access-keys"
+        ingress:
+          enabled: true
+          hosts:
+            - host: rustfs.lewandowskim.com
+              paths:
+                - path: /
+                  pathType: Prefix
+          tls:
+            enabled: true
+            existingSecret:
+              enabled: true
+              name: "tls-wildcard-lewandowskim-com"
+        resources:
+          limits:
+            cpu: 200m
+            memory: 512Mi
+          requests:
+            cpu: 100m
+            memory: 128Mi
+        storageclass:
+          name: ssd
+          dataStorageSize: 1Gi
+          logStorageSize: 256Mi
+        extraManifests:
+        - apiVersion: secretgen.k14s.io/v1alpha1
+          kind: Password
+          metadata:
+            name: rustfs-access-keys
+          spec:
+            length: 40
+            secretTemplate:
+              type: Opaque
+              stringData:
+                RUSTFS_ACCESS_KEY: bcd6be42f3a9cf68b0c4
+                RUSTFS_SECRET_KEY: $(value)
