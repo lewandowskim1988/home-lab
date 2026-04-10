@@ -15,6 +15,26 @@
 apiVersion: v1
 kind: Endpoints
 metadata:
+  name: rustfs-cli
+subsets:
+- addresses:
+  - ip: 192.168.0.218
+  ports:
+  - port: 9000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rustfs-cli
+spec:
+  ports:
+  - port: 9000
+    targetPort: 9000
+  clusterIP: "None"
+---
+apiVersion: v1
+kind: Endpoints
+metadata:
   name: rustfs
 subsets:
 - addresses:
