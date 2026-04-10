@@ -28,6 +28,7 @@ spec:
         fullnameOverride: kan
         version:
           postgresql: "18"
+        mode: standalone # change to "recovery" when running DB restore
         cluster:
           instances: 1
           storage:
@@ -41,3 +42,28 @@ spec:
               cpu: 700m
           initdb:
             database: kanbn
+        backups:
+          enabled: true
+          endpointURL: "http://rustfs-cli.rustfs.svc.cluster.local:9000"
+          provider: s3
+          s3:
+            region: "eu-central-1"
+            bucket: "db-backup"
+            path: "/kanbn"
+          secret:
+            create: false
+            name: "rustfs-db-backup"
+          scheduledBackups:
+            - name: daily-backup
+              schedule: "0 0 21 * * *"
+              backupOwnerReference: self
+              method: barmanObjectStore
+        recovery:
+          provider: s3
+          method: object_store
+          clusterName: "kan"
+          database: kanbn
+          s3:
+            region: "eu-central-1"
+            bucket: "db-backup"
+            path: "/kanbn"
