@@ -1,6 +1,19 @@
 apiVersion: v1
 kind: Service
 metadata:
+  annotations:
+    metallb.io/allow-shared-ip: gitea-ssh
+    external-dns.alpha.kubernetes.io/hostname: gitea-ssh.lewandowskim.com.
+  name: gitea-ssh
+spec:
+  ports:
+  - port: 22
+    targetPort: 2222
+  type: LoadBalancer
+---
+apiVersion: v1
+kind: Service
+metadata:
   name: gitea
 spec:
   ports:

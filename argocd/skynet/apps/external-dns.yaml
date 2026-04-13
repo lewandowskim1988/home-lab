@@ -33,8 +33,6 @@ spec:
           requests:
             cpu: 50m
             memory: 80Mi
-        sources:
-          - ingress
         policy: "sync"
         provider:
           name: cloudflare

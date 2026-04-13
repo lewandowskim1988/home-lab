@@ -1,6 +1,16 @@
 apiVersion: v1
 kind: Endpoints
 metadata:
+  name: gitea-ssh
+subsets:
+- addresses:
+  - ip: 192.168.0.218
+  ports:
+  - port: 2222
+---
+apiVersion: v1
+kind: Endpoints
+metadata:
   name: gitea
 subsets:
 - addresses:
