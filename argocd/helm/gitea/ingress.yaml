@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+  name: gitea
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: gitea.lewandowskim.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: gitea
+            port:
+              number: 3000
+        path: /
+        pathType: Prefix
+  tls:
+  - hosts:
+    - gitea.lewandowskim.com
+    secretName: tls-wildcard-lewandowskim-com
